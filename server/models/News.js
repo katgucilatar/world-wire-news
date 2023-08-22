@@ -11,6 +11,11 @@ const newsSchema = new Schema ({
         required: true
     },
 
+    newsId: {
+        type: String,
+        required: true,
+      },
+
     language: {
         type: String
     },

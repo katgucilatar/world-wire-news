@@ -29,6 +29,33 @@ const resolvers = {
 
       return { token, currentUser: user };
     },
+
+saveNews: async (parent, { userId, newsId }, context) => {
+  if (context.user) {
+    return User.findOneAndUpdate(
+      {_id: userId },
+      {
+        $addToSet: { savedNews: newsId },
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+  }
+  throw AuthenticationError;
+},
+
+deleteNews: async (parent, { newsId }, context) => {
+  if (context.user) {
+    return User.findOneAndUpdate(
+      { _id: context.user._id },
+      { $pull: { savedNews: newsId } },
+      { new: true }
+    );
+  }
+  throw AuthenticationError;
+    },
   },
 };
 
