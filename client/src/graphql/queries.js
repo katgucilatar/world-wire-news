@@ -10,4 +10,12 @@ export const QUERY_CURRENT_USER = gql`
       lastName
     }
   }
-`;
+`
+;
+
+// query getAllNews based off source-countries using search news endpoint off world news api
+// query getSingleNews based off text?
+
+
+
+
