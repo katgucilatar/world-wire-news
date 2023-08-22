@@ -29,7 +29,7 @@ Link of deployed application
 ## Screenshots
 Screenshot of the deployed application
 ## Contributors
-Katrina: [GitHub](https://github.com/katgucilatar) -- [LinkedIn]() -- [Email]()
+Katrina: [GitHub](https://github.com/katgucilatar) -- [LinkedIn](https://www.linkedin.com/in/katrina-gucilatar-59983217b/) -- [Email](katgucilatar@outlook.com)
 <br>
 <br>
 Herb: [GitHub](https://github.com/HerbSneed) -- [LinkedIn]() -- [Email]()
