@@ -45,31 +45,33 @@ export default function Login() {
           <p className="error-text">The provided credentials are incorrect</p>
         </div>
       ) : null}
-      <form id="login-form" onSubmit={handleFormSubmit}>
-        <h2>Login</h2>
-        <label htmlFor="email">
-          Email:
-          <input
-            placeholder="youremail@test.com"
-            name="email"
-            type="email"
-            value={formState.email}
-            onChange={handleChange}
-          />
-        </label>
-        <label htmlFor="password">
-          Password
-          <input
-            placeholder="******"
-            name="password"
-            type="password"
-            value={formState.password}
-            onChange={handleChange}
-          />
-        </label>
-        <button type="submit">
-          Login
-        </button>
+      <form id="login-form" onSubmit={handleFormSubmit} className="bg-gray-100 p-6 rounded">
+  <h2 className="text-2xl mb-4">Login</h2>
+  <label htmlFor="email" className="block mb-2">
+    Email:
+    <input
+      placeholder="youremail@test.com"
+      name="email"
+      type="email"
+      value={formState.email}
+      onChange={handleChange}
+      className="mt-1 p-2 w-full border rounded"
+    />
+  </label>
+  <label htmlFor="password" className="block mb-2">
+    Password:
+    <input
+      placeholder="******"
+      name="password"
+      type="password"
+      value={formState.password}
+      onChange={handleChange}
+      className="mt-1 p-2 w-full border rounded"
+    />
+  </label>
+  <button type="submit" className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 mt-4">
+    Login
+  </button>
         <p>
           Need an account? Sign up
           {' '}
