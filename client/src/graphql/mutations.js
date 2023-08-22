@@ -26,5 +26,39 @@ mutation register($firstName: String!, $lastName: String!, $email: String!, $pas
 }
 `;
 
+export const SAVE_NEWS = gql`
+  mutation saveNews($newNews: NewsInput!) {
+    saveNews(newNews: $newNews) {
+      _id
+      email
+      savedNews {
+        newsId
+        sourceCountry
+        text
+        title
+        language
+        link
+      }
+    }
+  }
+`;
+
+export const DELETE_NEWS = gql`
+  mutation deleteNews($newsId: ID!) {
+    deleteBook(newsId: $newsId) {
+      _id
+      email
+      savedNews {
+        newsId
+        sourceCountry
+        text
+        title
+        language
+        link
+      }
+    }
+  }
+`;
+
 // mutation addcountry or save country?
 // mutation deletecountry
