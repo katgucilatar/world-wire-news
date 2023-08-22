@@ -25,3 +25,6 @@ mutation register($firstName: String!, $lastName: String!, $email: String!, $pas
   }
 }
 `;
+
+// mutation addcountry or save country?
+// mutation deletecountry
