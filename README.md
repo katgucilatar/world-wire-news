@@ -1,7 +1,7 @@
-# WorldWire News
+![WorldWire](https://github.com/katgucilatar/world-wire-news/assets/112834937/be2588b6-7f2c-417d-9674-57b5edce07d4)
 
 ## Description
-Introducing "WorldWire" - 
+Introducing "WorldWire" - the ultimate platform for travelers to connect with news channels and articles from across the world! It's a user-friendly application for you to view places being promoted in the news.
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
@@ -17,7 +17,8 @@ Introducing "WorldWire" -
 |---------------------------------------------------------|-------------------|
 |[Express](https://www.npmjs.com/package/express)         |`npm i express`    |
 ## Usage
-
+npm i
+npm run develop
 ## Motivation
 
 ## Technologies
