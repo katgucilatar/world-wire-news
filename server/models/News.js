@@ -1,30 +1,31 @@
 const { Schema } = require('mongoose');
 
 const newsSchema = new Schema ({
-    sourceCountry: {
-        type: String,
-        required: true
-    },
-
-    text: {
-        type: String,
-        required: true
-    },
-
-    newsId: {
+    title: {
         type: String,
         required: true,
-      },
-
-    language: {
+    },
+    summary: {
+        type: String,
+        required: true,
+    },
+    source_country: {
+        type: String,
+        required: true,
+    },
+    url: {
+        type: String,
+        required: true,
+    },
+    image: {
         type: String
     },
-
-    link: {
-        type: String,
-        required: true
+    language: {
+        type: String
     }
 
-})
+});
+
+module.exports = newsSchema;
 
 // BASED OFF ENDPOINTS OF SEARCH NEWS FROM WORLD NEWS API
