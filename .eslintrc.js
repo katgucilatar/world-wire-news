@@ -18,5 +18,6 @@ module.exports = {
   plugins: ["react", "prettier"],
   rules: {
     "no-console": "off",
+    "no-underscore-dangle": ["error", { allow: ["_id"] }],
   },
 };
