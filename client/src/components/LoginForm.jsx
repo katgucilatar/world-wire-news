@@ -75,7 +75,7 @@ export default function Login() {
         </label>
         <button
           type="submit"
-          className="bg-red-500 text-white p-2 rounded hover:bg-blue-600 mt-4"
+          className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 mt-4"
         >
           Login
         </button>
