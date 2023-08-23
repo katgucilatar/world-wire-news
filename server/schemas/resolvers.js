@@ -56,6 +56,60 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
+
+saveNews: async (parent, { userId, newsId }, context) => {
+  if (context.user) {
+    return User.findOneAndUpdate(
+      {_id: userId },
+      {
+        $addToSet: { savedNews: newsId },
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+  }
+  throw AuthenticationError;
+},
+
+deleteNews: async (parent, { newsId }, context) => {
+  if (context.user) {
+    return User.findOneAndUpdate(
+      { _id: context.user._id },
+      { $pull: { savedNews: newsId } },
+      { new: true }
+    );
+  }
+  throw AuthenticationError;
+    },
+    
+saveCountry: async (parent, { userId, countryId }, context) => {
+  if (context.user) {
+    return User.findOneAndUpdate(
+      {_id: userId },
+      {
+        $addToSet: { savedCountries: countryId },
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+  }
+  throw AuthenticationError;
+    },
+    
+  deleteCountry: async (parent, { countryId }, context) => {
+    if (context.user) {
+      return User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $pull: { savedCountries: countryId } },
+        { new: true }
+      );
+    }
+    throw AuthenticationError;
+      },
   },
 };
 

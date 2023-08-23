@@ -14,20 +14,32 @@ const typeDefs = `#graphql
 
   type News {
     newsId: ID!
-    sourceCountry: String
-    text: String
     title: String
+    summary: String
+    source_country: String
+    url: String
+    image: String
     language: String
-    link: String
 }
 
 input NewsInput {
-  newsId: ID!
-  sourceCountry: String
-  text: String
-  title: String
-  language: String
-  link: String
+    newsId: ID!
+    title: String
+    summary: String
+    source_country: String
+    url: String
+    image: String
+    language: String
+}
+
+type Country {
+  countryId: ID!
+  countries: [String]
+}
+
+input CountryInput {
+  countryId: ID!
+  countries: [String]
 }
 
   type Query {
@@ -40,6 +52,9 @@ input NewsInput {
 
     saveNews(newNews: NewsInput!): User
     deleteNews(newsId: ID!): User
+
+    saveCountry(newCountry: CountryInput!): User
+    deleteCountry(countryId: ID!): User
   }
 `;
 
