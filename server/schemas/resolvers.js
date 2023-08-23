@@ -1,5 +1,5 @@
-const { User } = require('../models');
-const { signToken, AuthenticationError } = require('../utils');
+const { User } = require("../models");
+const { signToken, AuthenticationError } = require("../utils");
 
 const resolvers = {
   Query: {
@@ -30,31 +30,31 @@ const resolvers = {
       return { token, currentUser: user };
     },
 
-saveNews: async (parent, { userId, newsId }, context) => {
-  if (context.user) {
-    return User.findOneAndUpdate(
-      {_id: userId },
-      {
-        $addToSet: { savedNews: newsId },
-      },
-      {
-        new: true,
-        runValidators: true,
+    saveNews: async (parent, { userId, newsId }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: userId },
+          {
+            $addToSet: { savedNews: newsId },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
       }
-    );
-  }
-  throw AuthenticationError;
-},
+      throw AuthenticationError;
+    },
 
-deleteNews: async (parent, { newsId }, context) => {
-  if (context.user) {
-    return User.findOneAndUpdate(
-      { _id: context.user._id },
-      { $pull: { savedNews: newsId } },
-      { new: true }
-    );
-  }
-  throw AuthenticationError;
+    deleteNews: async (parent, { newsId }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id }, // added exception in eslintrc
+          { $pull: { savedNews: newsId } },
+          { new: true }
+        );
+      }
+      throw AuthenticationError;
     },
   },
 };
