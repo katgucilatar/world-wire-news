@@ -6,7 +6,11 @@ const countrySchema = new Schema({
             type: String,
             required: true
         }
-    ]
+    ],
+    countryId: {
+        type: String,
+        required: true,
+      },
 });
 
 module.exports = countrySchema;
