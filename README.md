@@ -17,8 +17,9 @@ Introducing "WorldWire" - the ultimate platform for travelers to connect with ne
 |---------------------------------------------------------|-------------------|
 |[Express](https://www.npmjs.com/package/express)         |`npm i express`    |
 ## Usage
-npm i
-npm run develop
+* npm i
+* npm i --save mapbox-gl
+* npm run develop
 ## Motivation
 
 ## Technologies
