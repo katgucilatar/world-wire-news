@@ -3,6 +3,7 @@ const { Schema, model } = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 const newsSchema = require('./News');
+const countrySchema = require('./Country');
 
 const userSchema = new Schema({
   firstName: {
@@ -27,6 +28,7 @@ const userSchema = new Schema({
     minlength: 5,
   },
   savedNews: [newsSchema],
+  savedCountries: [countrySchema]
 });
 
 userSchema.pre('save', async function (next) {
