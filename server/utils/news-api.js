@@ -22,3 +22,5 @@ function getNews(country){
 
 // searchInput.addEventListener("submit", searchHandler);
 };
+
+export {searchHandler, getNews};
