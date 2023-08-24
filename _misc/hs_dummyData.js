@@ -12,7 +12,7 @@ const dummyNewsItems = [
   publish_date: "2023-08-23 12:00:00",
   source_country: "au",
   title: "We do care if our top footy players are gay"
- }
+ },
  {
   id: 138144885,
   image: "https://api.time.com/wp-content/uploads/2023/08/GettyImages-1468430468.jpg?quality=85",
@@ -36,4 +36,4 @@ const dummyNewsItems = [
  }
 ];
 
-export dummyNewsItems;
+export {dummyNewsItems};

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getHeadlines } from '../utils/news-api';
+import { dummyNewsItems } from '../../../_misc/hs_dummyData'
 
 const Landing = () => {
  const [newsItems, setNewsItems] = useState([]);
@@ -28,7 +29,8 @@ const Landing = () => {
 
       console.log(newsData)
 
-      setNewsItems(newsData);
+      // setNewsItems(newsData);
+      setNewsItems(dummyNewsItems);
     } catch (err) {
       console.error(err);
     }
