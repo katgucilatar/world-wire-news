@@ -20,6 +20,7 @@ const typeDefs = `#graphql
     url: String
     image: String
     language: String
+    latest_publish_date: String
 }
 
 input NewsInput {
@@ -30,6 +31,7 @@ input NewsInput {
     url: String
     image: String
     language: String
+    latest_publish_date: String
 }
 
 type Country {

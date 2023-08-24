@@ -26,6 +26,9 @@ const newsSchema = new Schema ({
     },
     language: {
         type: String
+    },
+    latest_publish_date: {
+        type: String
     }
 
 });

@@ -39,6 +39,7 @@ export const SAVE_NEWS = gql`
         url
         image
         language
+        latest_publish_date
       }
     }
   }
@@ -57,6 +58,7 @@ export const DELETE_NEWS = gql`
         url
         image
         language
+        latest_publish_date
       }
     }
   }

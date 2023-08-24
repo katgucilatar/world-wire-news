@@ -4,7 +4,11 @@ const { signToken, AuthenticationError } = require("../utils");
 const resolvers = {
   Query: {
     currentUser: async (parent, { email }) => User.findOne({ email }),
+    news: async (parent, { email }) => {
+      const params = email ? { email } : {};
+      return News.find(params).sort({ latest_publish_date: -1 });
   },
+},
 
   Mutation: {
     register: async (parent, { firstName, lastName, email, password }) => {
