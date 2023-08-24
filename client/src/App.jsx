@@ -7,13 +7,11 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { useCookies } from "react-cookie";
-import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Landing from "./pages/Landing";
 
-function App() {
+function App({ children }) {
   const [cookies] = useCookies(["auth_token"]);
 
   const httpLink = createHttpLink({
@@ -34,15 +32,11 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
-      <Router>
-        <Header />
-        <main>
-          <Routes>
-            <Route path="/" element={<Landing />} />
-          </Routes>
-        </main>
-        <Footer />
-      </Router>
+      <Header />
+      <main>
+        {children} {/* This will render the routes */}
+      </main>
+      <Footer />
     </ApolloProvider>
   );
 }

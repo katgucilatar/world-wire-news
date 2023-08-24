@@ -1,29 +1,39 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const LOGIN_USER = gql`
-mutation login($email: String!, $password: String!) {
-  login(email: $email, password: $password) {
-    currentUser {
-      email
-      firstName
-      lastName
-      _id
+  mutation login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      currentUser {
+        email
+        firstName
+        lastName
+        _id
+      }
+      token
     }
-    token
   }
-}
 `;
 
 export const REGISTER_USER = gql`
-mutation register($firstName: String!, $lastName: String!, $email: String!, $password: String!) {
-  register(firstName: $firstName, lastName: $lastName, email: $email, password: $password) {
-    currentUser {
-      firstName
-      lastName
+  mutation register(
+    $firstName: String!
+    $lastName: String!
+    $email: String!
+    $password: String!
+  ) {
+    register(
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      password: $password
+    ) {
+      currentUser {
+        firstName
+        lastName
+      }
+      token
     }
-    token
   }
-}
 `;
 
 export const SAVE_NEWS = gql`
@@ -65,8 +75,6 @@ export const DELETE_NEWS = gql`
 export const SAVE_COUNTRY = gql`
   mutation saveCountry($newCountry: CountryInput!) {
     saveCountry(newCountry: $newCountry) {
-=======
-    saveCountry(newCountry: $newCountry) {
       _id
       email
       savedCountries {
@@ -89,6 +97,3 @@ export const DELETE_COUNTRY = gql`
     }
   }
 `;
-
-module.exports = typeDefs;
-
