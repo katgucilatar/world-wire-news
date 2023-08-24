@@ -16,6 +16,8 @@ const Landing = () => {
       const formatted = await response.json();
       const { items } = formatted;
 
+      console.log(formatted)
+
       const newsData = items.map((news) => ({
       newsId: news.id,
       title: news.title,
@@ -24,6 +26,7 @@ const Landing = () => {
       url: news.url,
       }));
 
+      console.log(newsData)
 
       setNewsItems(newsData);
     } catch (err) {
@@ -33,9 +36,11 @@ const Landing = () => {
       fetchNews();
  
   }, []);
+
+  {newsItems.map((news) => {
   return (
   <>
-    {setNewsItems.map((news) => {
+  
    <header className="bg-blue-300 h-10">
     <h1 className="page-title">Headlines</h1>
    </header>
@@ -43,20 +48,40 @@ const Landing = () => {
    <section id="top-five-hl" className="grid grid-cols-1 gap-y-2 px-2">
     <div>
       <img></img>
-      <h3></h3>
-      <img></img>
-      <h3></h3>
-      <img></img>
-      <h3></h3>
-      <img></img>
-      <h3></h3>
+      <h3>{news.title}</h3>
+    </div>
+
+    <div>
       <img></img>
       <h3></h3>
     </div>
+
+    <div>
+      <img></img>
+      <h3></h3>
+    </div>
+
+    <div>
+      <img></img>
+      <h3></h3>
+    </div>
+  
+    <div>
+      <img></img>
+      <h3></h3>
+    </div>
+
+    <div>
+      <img></img>
+      <h3></h3>
+    </div>
+
    </section>
-    })}
+       
   </>
- );
+          );
+          })}
+
 };
 
 export default Landing;
