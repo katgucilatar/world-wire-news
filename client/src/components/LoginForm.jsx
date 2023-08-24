@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { Link, useNavigate } from "react-router-dom";
 
-import { LOGIN_USER } from "../graphql/mutations";
+import { LOGIN_USER } from "../utils/mutations";
 
 import { useCurrentUserContext } from "../context/CurrentUser";
 
