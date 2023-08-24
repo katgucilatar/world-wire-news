@@ -46,7 +46,7 @@ export const SAVE_NEWS = gql`
 
 export const DELETE_NEWS = gql`
   mutation deleteNews($newsId: ID!) {
-    deleteBook(newsId: $newsId) {
+    deleteNews(newsId: $newsId) {
       _id
       email
       savedNews {
@@ -64,7 +64,9 @@ export const DELETE_NEWS = gql`
 
 export const SAVE_COUNTRY = gql`
   mutation saveCountry($newCountry: CountryInput!) {
-    saveNews(newCountry: $newCountry) {
+    saveCountry(newCountry: $newCountry) {
+=======
+    saveCountry(newCountry: $newCountry) {
       _id
       email
       savedCountries {
@@ -87,3 +89,6 @@ export const DELETE_COUNTRY = gql`
     }
   }
 `;
+
+module.exports = typeDefs;
+

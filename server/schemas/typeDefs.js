@@ -44,6 +44,7 @@ input CountryInput {
 
   type Query {
     currentUser(email: String!): User
+    news: [News]!
   }
 
   type Mutation {
