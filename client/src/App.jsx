@@ -10,6 +10,7 @@ import { useCookies } from "react-cookie";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { Outlet } from "react-router-dom";
 
 function App({ children }) {
   const [cookies] = useCookies(["auth_token"]);
@@ -34,7 +35,9 @@ function App({ children }) {
     <ApolloProvider client={client}>
       <Header />
       <main>
-        {children} {/* This will render the routes */}
+        <Outlet> 
+        {children}
+        </Outlet>
       </main>
       <Footer />
     </ApolloProvider>

@@ -7,7 +7,6 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { CookiesProvider } from "react-cookie";
-
 import { CurrentUserProvider } from "./context";
 
 import App from "./App";
