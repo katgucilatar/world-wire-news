@@ -33,11 +33,13 @@ export const SAVE_NEWS = gql`
       email
       savedNews {
         newsId
-        sourceCountry
-        text
         title
+        summary
+        source_country
+        url
+        image
         language
-        link
+        latest_publish_date
       }
     }
   }
@@ -45,20 +47,50 @@ export const SAVE_NEWS = gql`
 
 export const DELETE_NEWS = gql`
   mutation deleteNews($newsId: ID!) {
-    deleteBook(newsId: $newsId) {
+    deleteNews(newsId: $newsId) {
       _id
       email
       savedNews {
         newsId
-        sourceCountry
-        text
         title
+        summary
+        source_country
+        url
+        image
         language
-        link
+        latest_publish_date
       }
     }
   }
 `;
 
-// mutation addcountry or save country?
-// mutation deletecountry
+export const SAVE_COUNTRY = gql`
+  mutation saveCountry($newCountry: CountryInput!) {
+    saveCountry(newCountry: $newCountry) {
+=======
+    saveCountry(newCountry: $newCountry) {
+      _id
+      email
+      savedCountries {
+        countryId
+        countries
+      }
+    }
+  }
+`;
+
+export const DELETE_COUNTRY = gql`
+  mutation deleteCountry($countryId: ID!) {
+    deleteCountry(countryId: $countryId) {
+      _id
+      email
+      savedCountries {
+        countryId
+        countries
+      }
+    }
+  }
+`;
+
+module.exports = typeDefs;
+

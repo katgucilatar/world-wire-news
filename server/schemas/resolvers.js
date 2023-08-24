@@ -4,7 +4,11 @@ const { signToken, AuthenticationError } = require("../utils");
 const resolvers = {
   Query: {
     currentUser: async (parent, { email }) => User.findOne({ email }),
+    news: async (parent, { email }) => {
+      const params = email ? { email } : {};
+      return News.find(params).sort({ latest_publish_date: -1 });
   },
+},
 
   Mutation: {
     register: async (parent, { firstName, lastName, email, password }) => {
@@ -55,33 +59,6 @@ const resolvers = {
         );
       }
       throw AuthenticationError;
-    },
-
-saveNews: async (parent, { userId, newsId }, context) => {
-  if (context.user) {
-    return User.findOneAndUpdate(
-      {_id: userId },
-      {
-        $addToSet: { savedNews: newsId },
-      },
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
-  }
-  throw AuthenticationError;
-},
-
-deleteNews: async (parent, { newsId }, context) => {
-  if (context.user) {
-    return User.findOneAndUpdate(
-      { _id: context.user._id },
-      { $pull: { savedNews: newsId } },
-      { new: true }
-    );
-  }
-  throw AuthenticationError;
     },
     
 saveCountry: async (parent, { userId, countryId }, context) => {
