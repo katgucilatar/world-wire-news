@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, News, Country } = require("../models");
 const { signToken, AuthenticationError } = require("../utils");
 
 const resolvers = {
