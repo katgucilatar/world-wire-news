@@ -2,7 +2,8 @@
   display: inline-block;
   white-space: nowrap;
   color: black;
-  animation: ticker 30s linear infinite;
+  animation: ticker 120s linear infinite;
+  animation-delay: -54s;
 }
 
 @keyframes ticker {
