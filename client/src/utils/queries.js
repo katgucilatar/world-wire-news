@@ -8,6 +8,16 @@ export const QUERY_CURRENT_USER = gql`
       email
       firstName
       lastName
+      savedNews {
+        newsId
+        title
+        summary
+        source_country
+        url
+        image
+        language
+        latest_publish_date
+      }
     }
   }
 `;
