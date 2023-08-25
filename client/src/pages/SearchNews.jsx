@@ -132,10 +132,11 @@ const SearchNews = () => {
                     <Card.Img src={news.image} alt={`Cover image for ${news.title}`} variant='top' />
                   ) : null}
                   <Card.Body>
-                    <Card.Title><a href={news.url}>{news.title}</a></Card.Title>
+                    <Card.Title>{news.title}</Card.Title>
                     <p className='small'>Source Country: {news.source_country}</p>
                     <p className='small'>Language: {news.language}</p>
                     <Card.Text>{news.summary}</Card.Text>
+                    <a href={news.url}>Read the full article here!</a>
                     {Auth.loggedIn() && (
                       <Button
                         disabled={savedNewsIds?.some((savedNewsId) => savedNewsId === news.newsId)}

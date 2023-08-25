@@ -14,7 +14,7 @@ export const getSavedNewsIds = () => {
     }
   };
   
-  export const removeNewsId = (newsId) => {
+  export const deleteNewsId = (newsId) => {
     const savedNewsIds = localStorage.getItem('saved_news')
       ? JSON.parse(localStorage.getItem('saved_news'))
       : null;
