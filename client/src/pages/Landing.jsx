@@ -41,7 +41,7 @@ const Landing = () => {
   return (
   <>
   
-   <div className="bg-white h-10 py-1 border-t-2 border-b-2 border-newsRed overflow-hidden">
+   <div className="bg-white h-10 py-1 border-t-2 border-b-2 border-newsBlue overflow-hidden">
 
     <h1 className="page-title news-ticker inline-block">
     {dummyNewsItems.length > 0 && (
@@ -66,7 +66,7 @@ const Landing = () => {
 
 <section id="more-news-hl" className="grid grid-cols-1 gap-y-2 px-2 mt-2">
   <div>
-  <h2 className='border-t-2 border-b-2 py-1 border-newsRed h-10 font-bold'> More News Headlines</h2>
+  <h2 className='border-t-2 border-b-2 py-1 border-newsBlue h-10 font-bold'> More News Headlines</h2>
   </div>
   {dummyNewsItems.slice(6, 11).map((news, index) => (
     <div key={news.id} >
