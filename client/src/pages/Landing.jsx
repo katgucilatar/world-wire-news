@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { getHeadlines } from '../utils/news-api';
 import { dummyNewsItems } from '../../../_misc/hs_dummyData';
+import '../../src/effects.css';
+
+
 
 const Landing = () => {
   const [newsItems, setNewsItems] = useState([]);
@@ -38,16 +41,25 @@ const Landing = () => {
   <>
   
    <header className="bg-white h-10 border-t-2 border-b-2 border-gray-600">
-    <h1 className="page-title">Headlines</h1>
-   </header>
 
-<section id="top-five-hl" className="grid grid-cols-1 gap-y-2 px-2 mt-1">
+    <h1 className="page-title news-ticker">
+    {dummyNewsItems.length > 0 && (
+            <span>
+              {dummyNewsItems.map((news) => news.title).join(' - ')}
+            </span>
+          )}
+    </h1>
+ 
+   </header>
+  
+
+<section id="top-five-hl" className="grid grid-cols-1 gap-y-2 px-2 mt-2">
   
   {dummyNewsItems.map((news) => (
     <div key={news.newsId} >
-      <div>
+      <div className='border-2'>
         <img src={news.image} alt={`Image for ${news.title}`} />
-        <h3 className='text-center font-bold'>{news.title}</h3>
+        <h3 className='flex justify-center text-center font-bold border-t-2 p-1'>{news.title}</h3>
       </div>
     </div>
   ))}
