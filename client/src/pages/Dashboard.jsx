@@ -12,7 +12,7 @@ function Dashboard() {
       container: mapContainer.current,
       style: "mapbox://styles/swmythos/cllq0tvmh00jm01p9d4q123ar",
       center: [-74.5, 40],
-      zoom: 9,
+      zoom: 2,
       pitch: 10,
       bearing: 0,
       projection: "globe",
