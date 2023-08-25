@@ -3,13 +3,11 @@ export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     colors: {
-      transparent: 'transparent',
-      current: 'currentColor',
-      'cubblue': '#1B2D53',
-      'cubred': '#CF102B',
-      'white': '#FFFFFF',
-      'white': '#FFFFFF',
-      'white': '#FFFFFF',
+      'newsRed': '#BD352A',
+      'newsGray': '#CFD0D6',
+      'newsBlue': '#384D6B',
+      'newsGrayBlue': '#384D6B',
+      'newsBlack': '#384D6B',
     },
     extend: {},
   },

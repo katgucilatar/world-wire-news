@@ -44,10 +44,10 @@ const Landing = () => {
 <section id="top-five-hl" className="grid grid-cols-1 gap-y-2 px-2 mt-1">
   
   {dummyNewsItems.map((news) => (
-    <div key={news.newsId}>
+    <div key={news.newsId} >
       <div>
         <img src={news.image} alt={`Image for ${news.title}`} />
-        <h3>{news.title}</h3>
+        <h3 className='text-center font-bold'>{news.title}</h3>
       </div>
     </div>
   ))}
