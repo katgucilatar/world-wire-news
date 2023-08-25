@@ -34,16 +34,6 @@ input NewsInput {
     latest_publish_date: String
 }
 
-type Country {
-  countryId: ID!
-  countries: [String]
-}
-
-input CountryInput {
-  countryId: ID!
-  countries: [String]
-}
-
   type Query {
     currentUser(email: String!): User
     news: [News]!
@@ -55,9 +45,6 @@ input CountryInput {
 
     saveNews(newNews: NewsInput!): User
     deleteNews(newsId: ID!): User
-
-    saveCountry(newCountry: CountryInput!): User
-    deleteCountry(countryId: ID!): User
   }
 `;
 

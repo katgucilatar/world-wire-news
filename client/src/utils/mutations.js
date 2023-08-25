@@ -74,28 +74,4 @@ export const DELETE_NEWS = gql`
   }
 `;
 
-export const SAVE_COUNTRY = gql`
-  mutation saveCountry($newCountry: CountryInput!) {
-    saveCountry(newCountry: $newCountry) {
-      _id
-      email
-      savedCountries {
-        countryId
-        countries
-      }
-    }
-  }
-`;
 
-export const DELETE_COUNTRY = gql`
-  mutation deleteCountry($countryId: ID!) {
-    deleteCountry(countryId: $countryId) {
-      _id
-      email
-      savedCountries {
-        countryId
-        countries
-      }
-    }
-  }
-`;
