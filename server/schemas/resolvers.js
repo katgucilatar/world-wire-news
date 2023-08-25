@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, News } = require("../models");
 const { signToken, AuthenticationError } = require("../utils");
 
 const resolvers = {
@@ -7,8 +7,8 @@ const resolvers = {
     news: async (parent, { email }) => {
       const params = email ? { email } : {};
       return News.find(params).sort({ latest_publish_date: -1 });
+    },
   },
-},
 
   Mutation: {
     register: async (parent, { firstName, lastName, email, password }) => {
@@ -60,33 +60,33 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-    
-saveCountry: async (parent, { userId, countryId }, context) => {
-  if (context.user) {
-    return User.findOneAndUpdate(
-      {_id: userId },
-      {
-        $addToSet: { savedCountries: countryId },
-      },
-      {
-        new: true,
-        runValidators: true,
+
+    saveCountry: async (parent, { userId, countryId }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: userId },
+          {
+            $addToSet: { savedCountries: countryId },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
       }
-    );
-  }
-  throw AuthenticationError;
+      throw AuthenticationError;
     },
-    
-  deleteCountry: async (parent, { countryId }, context) => {
-    if (context.user) {
-      return User.findOneAndUpdate(
-        { _id: context.user._id },
-        { $pull: { savedCountries: countryId } },
-        { new: true }
-      );
-    }
-    throw AuthenticationError;
-      },
+
+    deleteCountry: async (parent, { countryId }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { savedCountries: countryId } },
+          { new: true }
+        );
+      }
+      throw AuthenticationError;
+    },
   },
 };
 
