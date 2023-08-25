@@ -1,4 +1,5 @@
 import "./App.css";
+import "mapbox-gl/dist/mapbox-gl.css";
 import {
   ApolloClient,
   InMemoryCache,
@@ -35,9 +36,7 @@ function App({ children }) {
     <ApolloProvider client={client}>
       <Header />
       <main>
-        <Outlet> 
-        {children}
-        </Outlet>
+        <Outlet>{children}</Outlet>
       </main>
       <Footer />
     </ApolloProvider>
