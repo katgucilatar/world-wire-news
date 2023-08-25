@@ -37,11 +37,11 @@ const Landing = () => {
   return (
   <>
   
-   <header className="bg-blue-300 h-10">
+   <header className="bg-white h-10 border-t-2 border-b-2 border-gray-600">
     <h1 className="page-title">Headlines</h1>
    </header>
 
-<section id="top-five-hl" className="grid grid-cols-1 gap-y-2 px-2">
+<section id="top-five-hl" className="grid grid-cols-1 gap-y-2 px-2 mt-1">
   
   {dummyNewsItems.map((news) => (
     <div key={news.newsId}>
