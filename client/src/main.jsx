@@ -24,9 +24,7 @@ const router = createBrowserRouter(
       <Route index element={<Landing />} />
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
-      <Route
-        path="dashboard"
-        element={
+      <Route path="dashboard" element={
           <ProtectedRoute>
             <Dashboard />
           </ProtectedRoute>

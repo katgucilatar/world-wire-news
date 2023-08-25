@@ -2,6 +2,15 @@
 export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
+    colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
+      'newsRed': '#BD352A',
+      'newsGray': '#CFD0D6',
+      'newsBlue': '#282361',
+      'newsGrayBlue':'#717F94',
+      'newsBlack': '#000000',
+    },
     extend: {},
   },
   plugins: [],
