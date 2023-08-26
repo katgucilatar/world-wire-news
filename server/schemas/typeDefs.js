@@ -5,6 +5,8 @@ const typeDefs = `#graphql
     lastName: String
     email: String
     password: String
+    userDefaultNews: String
+    selectedCountry: String
   }
 
   type Auth {
@@ -39,13 +41,19 @@ input NewsInput {
     news: [News]!
   }
 
-  type Mutation {
-    register(firstName: String!, lastName: String!, email: String!, password: String!): Auth
-    login(email: String!, password: String!): Auth
-
-    saveNews(newNews: NewsInput!): User
-    deleteNews(newsId: ID!): User
-  }
+type Mutation {
+  register(
+    firstName: String!
+    lastName: String!
+    email: String!
+    password: String!
+    userDefaultNews: String 
+    selectedCountry: String  
+  ): Auth
+  login(email: String!, password: String!): Auth
+  saveNews(newNews: NewsInput!): User
+  deleteNews(newsId: ID!): User
+}
 `;
 
 module.exports = typeDefs;

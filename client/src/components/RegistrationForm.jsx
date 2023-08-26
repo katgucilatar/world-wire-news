@@ -1,44 +1,56 @@
-import { useState } from "react";
-import { useMutation } from "@apollo/client";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { Link, useNavigate } from 'react-router-dom';
 
-import { REGISTER_USER } from "../utils/mutations";
+import { REGISTER_USER } from '../utils/mutations';
 
-import { useCurrentUserContext } from "../context/CurrentUser";
+import { useCurrentUserContext } from '../context/CurrentUser';
 
 export default function Registration() {
   const { loginUser } = useCurrentUserContext();
   const navigate = useNavigate();
   const [formState, setFormState] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    userDefaultNews: 'World',
+    selectedCountry: '',
   });
 
   const [register, { error }] = useMutation(REGISTER_USER);
 
-  const handleFormSubmit = async (event) => {
+  const handleFormSubmit = async event => {
     event.preventDefault();
+
     try {
+      let variables = {
+        firstName: formState.firstName,
+        lastName: formState.lastName,
+        email: formState.email,
+        password: formState.password,
+        userDefaultNews: formState.userDefaultNews,
+      };
+
+      if (formState.userDefaultNews === 'Select a country') {
+        variables.selectedCountry = formState.selectedCountry;
+      }
+
       const mutationResponse = await register({
-        variables: {
-          firstName: formState.firstName,
-          lastName: formState.lastName,
-          email: formState.email,
-          password: formState.password,
-        },
+        variables: variables,
       });
+
+      console.log('Mutation response:', mutationResponse);
       const { token, user } = mutationResponse.data.register;
       loginUser(user, token);
-      navigate("/dashboard");
+      navigate('/dashboard');
     } catch (e) {
       // eslint-disable-next-line no-console
       console.log(e);
     }
   };
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     const { name, value } = event.target;
     setFormState({ ...formState, [name]: value });
   };
@@ -56,6 +68,7 @@ export default function Registration() {
         className="bg-gray-100 p-6 rounded"
       >
         <h2 className="text-2xl mb-10">Register</h2>
+
         <label htmlFor="firstName" className="block mb-2">
           First name:
           <input
@@ -100,6 +113,34 @@ export default function Registration() {
             className="mt-1 p-2 w-full border rounded"
           />
         </label>
+
+        <label htmlFor="userDefaultNews" className="block mb-2">
+          Default News Category:
+          <select
+            name="userDefaultNews"
+            value={formState.userDefaultNews}
+            onChange={handleChange}
+            className="mt-1 p-2 w-full border rounded"
+          >
+            <option value="World">World</option>
+            <option value="Select a country">Select a country</option>
+          </select>
+        </label>
+        {formState.userDefaultNews === 'Select a country' && (
+          <>
+            <label htmlFor="selectedCountry" className="block mb-2">
+              Selected Country:
+              <input
+                type="text"
+                name="selectedCountry"
+                value={formState.selectedCountry}
+                onChange={handleChange}
+                className="mt-1 p-2 w-full border rounded"
+              />
+            </label>
+          </>
+        )}
+
         <button
           type="submit"
           className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 mt-4"

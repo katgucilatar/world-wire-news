@@ -26,6 +26,19 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
+  userDefaultNews: {
+    type: String,
+    enum: ['World', 'Select a country'],
+    default: 'World'
+  },
+  selectedCountry: {
+    type: String,
+    validate: {
+      validator: function () {
+      return this.userDefaultNews === 'Select a country';
+      },
+    },
+  },
   savedNews: [newsSchema]
 });
 
