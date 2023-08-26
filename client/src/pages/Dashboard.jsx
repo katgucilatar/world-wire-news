@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import SearchNews from "./SearchNews"
 
 const MAPBOX_TOKEN =
   "pk.eyJ1Ijoic3dteXRob3MiLCJhIjoiY2xsbXc5MmE1MDRjMjNla3F6bDhueTV5OSJ9.cu9Y3UeEMkFTX45o0UDaSw";
@@ -109,7 +110,7 @@ function Dashboard() {
                     }}
                   />
                 )}
-              <h5>{newsItem.title}</h5>
+              <a href={newsItem.url}>{newsItem.title}</a>
               <p>{newsItem.summary}</p>
             </div>
           ))}
