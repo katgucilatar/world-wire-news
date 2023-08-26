@@ -2,43 +2,40 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
+const MAPBOX_TOKEN =
+  "pk.eyJ1Ijoic3dteXRob3MiLCJhIjoiY2xsbXc5MmE1MDRjMjNla3F6bDhueTV5OSJ9.cu9Y3UeEMkFTX45o0UDaSw";
+const NEWS_API_KEY = "38d818b814364e2c8cf44be7b62549c5";
+
 function Dashboard() {
   const map = useRef(null);
   const mapContainer = useRef(null);
   const [news, setNews] = useState([]);
   const [locationDetails, setLocationDetails] = useState(null);
 
-  const fetchNewsForCountry = async (country) => {
-    try {
-      const response = await fetch(
-        `https://api.worldnewsapi.com/search-news?api-key=38d818b814364e2c8cf44be7b62549c5&source-countries=${country}`
-      );
-      const data = await response.json();
-      if (data && Array.isArray(data.news)) {
-        setNews(data.news);
-      } else {
-        console.error("Unexpected data format from API:", data);
-        setNews([]);
-      }
-    } catch (error) {
-      console.error("Error fetching news:", error);
+  const fetchNewsForLocation = async (location) => {
+    const encodedLocation = encodeURIComponent(location);
+    const response = await fetch(
+      `https://api.worldnewsapi.com/search-news?api-key=${NEWS_API_KEY}&location=${encodedLocation}`
+    );
+    const data = await response.json();
+    if (data && Array.isArray(data.news)) {
+      setNews(data.news);
+    } else {
+      console.error("Unexpected data format from API:", data);
+      setNews([]);
     }
   };
 
   const onMapClick = useCallback(async (e) => {
     const lngLat = e.lngLat;
     const response = await fetch(
-      `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?access_token=pk.eyJ1Ijoic3dteXRob3MiLCJhIjoiY2xsbXc5MmE1MDRjMjNla3F6bDhueTV5OSJ9.cu9Y3UeEMkFTX45o0UDaSw`
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?access_token=${MAPBOX_TOKEN}`
     );
     const data = await response.json();
     if (data && data.features && data.features.length) {
-      const placeName = data.features[0].place_name; // Using place_name instead of place_formatted
+      const placeName = data.features[0].place_name;
       setLocationDetails(placeName);
-
-      const country = data.features[0].properties.context.find((item) =>
-        item.id.startsWith("country")
-      ).text;
-      fetchNewsForCountry(country);
+      fetchNewsForLocation(placeName); // Fetch the news for the location
     }
   }, []);
 
@@ -52,8 +49,7 @@ function Dashboard() {
       pitch: 10,
       bearing: 0,
       projection: "globe",
-      accessToken:
-        "pk.eyJ1Ijoic3dteXRob3MiLCJhIjoiY2xsbXc5MmE1MDRjMjNla3F6bDhueTV5OSJ9.cu9Y3UeEMkFTX45o0UDaSw",
+      accessToken: MAPBOX_TOKEN,
     });
 
     map.current.on("click", onMapClick);
