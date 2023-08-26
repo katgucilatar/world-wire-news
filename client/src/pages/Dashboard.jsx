@@ -109,7 +109,7 @@ function Dashboard() {
                     }}
                   />
                 )}
-              <h5>{newsItem.title}</h5>
+              <a href={newsItem.url}>{newsItem.title}</a>
               <p>{newsItem.summary}</p>
             </div>
           ))}
