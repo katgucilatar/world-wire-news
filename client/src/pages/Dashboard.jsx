@@ -4,7 +4,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 const MAPBOX_TOKEN =
   "pk.eyJ1Ijoic3dteXRob3MiLCJhIjoiY2xsbXc5MmE1MDRjMjNla3F6bDhueTV5OSJ9.cu9Y3UeEMkFTX45o0UDaSw";
-const NEWS_API_KEY = "9f126c9ab647469682b1742692c17533";
+const NEWS_API_KEY = "76c92a54c1ed409d97c7ca30981b71e1";
 
 function Dashboard() {
   const map = useRef(null);
@@ -12,15 +12,16 @@ function Dashboard() {
   const [news, setNews] = useState([]);
   const [locationDetails, setLocationDetails] = useState(null);
 
-  const fetchNewsForLocation = async (location) => {
-    const encodedLocation = encodeURIComponent(location);
+  const fetchNewsForCountry = async (countryCode) => {
     const response = await fetch(
-      `https://api.worldnewsapi.com/search-news?api-key=${NEWS_API_KEY}&location=${encodedLocation}`
+      `https://newsapi.org/v2/top-headlines?country=${countryCode}&apiKey=${NEWS_API_KEY}`
     );
     const data = await response.json();
-    if (data && Array.isArray(data.news)) {
-      console.log(data.news); // Debugging: Logging news data to check for any errors
-      setNews(data.news);
+
+    console.log("NewsAPI Response:", data); // Debugging: Logging NewsAPI response
+
+    if (data && data.status === "ok" && Array.isArray(data.articles)) {
+      setNews(data.articles);
     } else {
       console.error("Unexpected data format from API:", data);
       setNews([]);
@@ -33,10 +34,19 @@ function Dashboard() {
       `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?access_token=${MAPBOX_TOKEN}`
     );
     const data = await response.json();
+
+    console.log("Mapbox Response:", data); // Debugging: Logging Mapbox API response
+
     if (data && data.features && data.features.length) {
       const placeName = data.features[0].place_name;
+      const countryCode = data.features[0].context.find(
+        (c) => c.id.indexOf("country") === 0
+      )?.short_code; // Extracting the country short code
+
       setLocationDetails(placeName);
-      fetchNewsForLocation(placeName); // Fetching for the location
+      if (countryCode) {
+        fetchNewsForCountry(countryCode);
+      }
     }
   }, []);
 
@@ -77,7 +87,6 @@ function Dashboard() {
           <p>{locationDetails}</p>
         </div>
       )}
-
       {/* News Info Box */}
       {news.length > 0 && (
         <div
@@ -87,34 +96,51 @@ function Dashboard() {
             left: "10px",
             padding: "20px",
             backgroundColor: "rgba(255, 255, 255, 0.8)",
-            maxWidth: "300px",
+            maxWidth: "500px", // Increased width for better visibility
             zIndex: 1,
-            overflowY: "scroll", // Scroll added
-            maxHeight: "300px", // Max height for news info box
+            overflowY: "scroll",
+            maxHeight: "500px", // Increased height for better visibility
           }}
         >
           <h4>Latest News</h4>
           {news.map((newsItem, index) => (
             <div key={index}>
-              {/* Checking for Image URL */}
-              {typeof newsItem.imageUrl === "string" &&
-                newsItem.imageUrl.length > 0 && (
+              {newsItem.urlToImage && (
+                <a
+                  href={newsItem.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <img
-                    src={newsItem.imageUrl}
+                    src={newsItem.urlToImage}
                     alt={newsItem.title}
+                    onError={(e) => {
+                      console.error("Failed to load image:", e);
+                      e.target.style.display = "none"; // Hide the img element if the image fails to load
+                    }}
                     style={{
                       width: "100%",
-                      maxHeight: "100px",
+                      maxHeight: "150px",
                       objectFit: "cover",
+                      marginBottom: "10px",
                     }}
-                  />
+          />
+                    </a>
                 )}
-              <a href={newsItem.url}>{newsItem.title}</a>
-              <p>{newsItem.summary}</p>
+                <h5>
+                    <a
+                        href={newsItem.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {newsItem.title}
+                    </a>
+                </h5>
+                <p>{newsItem.description}</p>
             </div>
-          ))}
-        </div>
-      )}
+        ))}
+    </div>
+)}
     </div>
   );
 }
