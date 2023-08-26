@@ -124,23 +124,23 @@ function Dashboard() {
                       objectFit: "cover",
                       marginBottom: "10px",
                     }}
-                  />
-                </a>
-              )}
-              <h5>
-                <a
-                  href={newsItem.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {newsItem.title}
-                </a>
-              </h5>
-              <p>{newsItem.description}</p>
+          />
+                    </a>
+                )}
+                <h5>
+                    <a
+                        href={newsItem.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {newsItem.title}
+                    </a>
+                </h5>
+                <p>{newsItem.description}</p>
             </div>
-          ))}
-        </div>
-      )}
+        ))}
+    </div>
+)}
     </div>
   );
 }
