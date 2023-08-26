@@ -4,7 +4,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 const MAPBOX_TOKEN =
   "pk.eyJ1Ijoic3dteXRob3MiLCJhIjoiY2xsbXc5MmE1MDRjMjNla3F6bDhueTV5OSJ9.cu9Y3UeEMkFTX45o0UDaSw";
-const NEWS_API_KEY = "38d818b814364e2c8cf44be7b62549c5";
+const NEWS_API_KEY = "9f126c9ab647469682b1742692c17533";
 
 function Dashboard() {
   const map = useRef(null);
@@ -19,6 +19,7 @@ function Dashboard() {
     );
     const data = await response.json();
     if (data && Array.isArray(data.news)) {
+      console.log(data.news); // Debugging: Logging news data to check for any errors
       setNews(data.news);
     } else {
       console.error("Unexpected data format from API:", data);
@@ -35,7 +36,7 @@ function Dashboard() {
     if (data && data.features && data.features.length) {
       const placeName = data.features[0].place_name;
       setLocationDetails(placeName);
-      fetchNewsForLocation(placeName); // Fetch the news for the location
+      fetchNewsForLocation(placeName); // Fetching for the location
     }
   }, []);
 
@@ -58,6 +59,8 @@ function Dashboard() {
   return (
     <div style={{ position: "relative", width: "100%", height: "800px" }}>
       <div ref={mapContainer} style={{ width: "100%", height: "800px" }}></div>
+
+      {/* Location Info Box */}
       {locationDetails && (
         <div
           style={{
@@ -74,14 +77,44 @@ function Dashboard() {
           <p>{locationDetails}</p>
         </div>
       )}
-      <div style={{ width: "100%" }}>
-        {news.map((newsItem, index) => (
-          <div key={index}>
-            <h3>{newsItem.title}</h3>
-            <p>{newsItem.summary}</p>
-          </div>
-        ))}
-      </div>
+
+      {/* News Info Box */}
+      {news.length > 0 && (
+        <div
+          style={{
+            position: "absolute",
+            bottom: "50px",
+            left: "10px",
+            padding: "20px",
+            backgroundColor: "rgba(255, 255, 255, 0.8)",
+            maxWidth: "300px",
+            zIndex: 1,
+            overflowY: "scroll", // Scroll added
+            maxHeight: "300px", // Max height for news info box
+          }}
+        >
+          <h4>Latest News</h4>
+          {news.map((newsItem, index) => (
+            <div key={index}>
+              {/* Checking for Image URL */}
+              {typeof newsItem.imageUrl === "string" &&
+                newsItem.imageUrl.length > 0 && (
+                  <img
+                    src={newsItem.imageUrl}
+                    alt={newsItem.title}
+                    style={{
+                      width: "100%",
+                      maxHeight: "100px",
+                      objectFit: "cover",
+                    }}
+                  />
+                )}
+              <h5>{newsItem.title}</h5>
+              <p>{newsItem.summary}</p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
