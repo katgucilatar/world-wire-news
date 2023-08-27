@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import styles from "../Dashboard.module.css";
 
 const MAPBOX_TOKEN =
   "pk.eyJ1Ijoic3dteXRob3MiLCJhIjoiY2xsbXc5MmE1MDRjMjNla3F6bDhueTV5OSJ9.cu9Y3UeEMkFTX45o0UDaSw";
@@ -67,44 +68,21 @@ function Dashboard() {
   }, [onMapClick]);
 
   return (
-    <div style={{ position: "relative", width: "100%", height: "800px" }}>
-      <div ref={mapContainer} style={{ width: "100%", height: "800px" }}></div>
+    <div className={styles.dashboardContainer}>
+      <div ref={mapContainer} className={styles.dashboardMapContainer}>
+        {locationDetails && (
+          <div className={styles.locationInfoBox}>
+            <h4>Location Details</h4>
+            <p>{locationDetails}</p>
+          </div>
+        )}
+      </div>
 
-      {/* Location Info Box */}
-      {locationDetails && (
-        <div
-          style={{
-            position: "absolute",
-            top: "10px",
-            left: "10px",
-            padding: "20px",
-            backgroundColor: "rgba(255, 255, 255, 0.8)",
-            maxWidth: "300px",
-            zIndex: 1,
-          }}
-        >
-          <h4>Location Details</h4>
-          <p>{locationDetails}</p>
-        </div>
-      )}
-      {/* News Info Box */}
       {news.length > 0 && (
-        <div
-          style={{
-            position: "absolute",
-            bottom: "50px",
-            left: "10px",
-            padding: "20px",
-            backgroundColor: "rgba(255, 255, 255, 0.8)",
-            maxWidth: "500px", // Increased width for better visibility
-            zIndex: 1,
-            overflowY: "scroll",
-            maxHeight: "500px", // Increased height for better visibility
-          }}
-        >
-          <h4>Latest News</h4>
+        <div className={styles.newsInfoBox}>
+          <h4 className="m-0">Latest News</h4>
           {news.map((newsItem, index) => (
-            <div key={index}>
+            <div key={index} className={styles.newsItemContainer}>
               {newsItem.urlToImage && (
                 <a
                   href={newsItem.url}
@@ -112,35 +90,31 @@ function Dashboard() {
                   rel="noopener noreferrer"
                 >
                   <img
+                    className={styles.newsItemImage}
                     src={newsItem.urlToImage}
                     alt={newsItem.title}
                     onError={(e) => {
                       console.error("Failed to load image:", e);
-                      e.target.style.display = "none"; // Hide the img element if the image fails to load
+                      e.target.style.display = "none";
                     }}
-                    style={{
-                      width: "100%",
-                      maxHeight: "150px",
-                      objectFit: "cover",
-                      marginBottom: "10px",
-                    }}
-          />
-                    </a>
-                )}
-                <h5>
-                    <a
-                        href={newsItem.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        {newsItem.title}
-                    </a>
-                </h5>
-                <p>{newsItem.description}</p>
+                  />
+                </a>
+              )}
+              <h5>
+                <a
+                  className={styles.newsTitleLink}
+                  href={newsItem.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {newsItem.title}
+                </a>
+              </h5>
+              <p>{newsItem.description}</p>
             </div>
-        ))}
-    </div>
-)}
+          ))}
+        </div>
+      )}
     </div>
   );
 }
