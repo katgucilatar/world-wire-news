@@ -20,12 +20,16 @@ export const REGISTER_USER = gql`
     $lastName: String!
     $email: String!
     $password: String!
+    $userDefaultNews: String
+    $selectedCountry: String
   ) {
     register(
       firstName: $firstName
       lastName: $lastName
       email: $email
       password: $password
+      userDefaultNews: $userDefaultNews
+      selectedCountry: $selectedCountry
     ) {
       currentUser {
         firstName
