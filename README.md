@@ -19,6 +19,7 @@ Introducing "WorldWire" - the ultimate platform for travelers to connect with ne
 ## Usage
 * npm i
 * npm i --save mapbox-gl
+* npm run seed
 * npm run develop
 ## Motivation
 
