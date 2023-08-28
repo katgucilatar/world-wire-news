@@ -51,6 +51,9 @@ const resolvers = {
         );
       }
       throw AuthenticationError;
+      const token = signToken(user);
+
+      return { token, currentUser: user };
     },
 
     deleteNews: async (parent, { newsId }, context) => {

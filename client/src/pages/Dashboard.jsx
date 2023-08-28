@@ -2,6 +2,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import styles from "../Dashboard.module.css";
+import { useMutation } from '@apollo/client';
+import { SAVE_NEWS } from '../utils/mutations';
+
 
 const MAPBOX_TOKEN =
   "pk.eyJ1Ijoic3dteXRob3MiLCJhIjoiY2xsbXc5MmE1MDRjMjNla3F6bDhueTV5OSJ9.cu9Y3UeEMkFTX45o0UDaSw";
@@ -13,6 +16,7 @@ function Dashboard() {
   const [news, setNews] = useState([]);
   const [locationDetails, setLocationDetails] = useState(null);
   const [isNewsVisible, setIsNewsVisible] = useState(true);
+  
 
   const fetchNewsForCountry = async (countryCode) => {
     const response = await fetch(
@@ -65,6 +69,37 @@ function Dashboard() {
     map.current.on("click", onMapClick);
   }, [onMapClick]);
 
+    const [SavedNews, setSavedNews] = useState({
+      title: '',
+      summary: '',
+    });
+
+  const [saveNews, { error }] = useMutation(SAVE_NEWS);
+
+   const handleSaveNews = async newsItem => {
+     try {
+      console.log('newsItem' + newsItem)
+       let variables = {
+         newsItem: {
+           title: newsItem.title,
+           summary: newsItem.summary,
+           // Mr. Sneed don't forget to add parameters once you get the this working
+         },
+       };
+       console.log(variables)
+
+       const mutationResponse = await saveNews({
+         variables: variables,
+       });
+
+       console.log('Mutation response:', mutationResponse);
+       const { token, user } = mutationResponse.data.saveNews;
+       // Handle success or any necessary updates
+     } catch (e) {
+       console.log(e);
+     }
+   };
+
   return (
     <div className={styles.dashboardContainer}>
       <div ref={mapContainer} className={styles.dashboardMapContainer}>
@@ -94,8 +129,8 @@ function Dashboard() {
                     className={styles.newsItemImage}
                     src={newsItem.urlToImage}
                     alt={newsItem.title}
-                    onError={(e) => {
-                      e.target.style.display = "none";
+                    onError={e => {
+                      e.target.style.display = 'none';
                     }}
                   />
                 </a>
@@ -111,6 +146,12 @@ function Dashboard() {
                 </a>
               </h5>
               <p>{newsItem.description}</p>
+              <button
+                className="float-right"
+                onClick={() => handleSaveNews(SavedNews)}
+              >
+                Save
+              </button>
             </div>
           ))}
         </div>

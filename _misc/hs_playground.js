@@ -60,4 +60,45 @@ const Landing = () => {
 export default Landing;
 
 
+// Save News Function
+
+import { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { SAVE_NEWS } from '../utils/mutations';
+
+import { useCurrentUserContext } from '../context/CurrentUser';
+
+export default function SAVE_NEWS() {
+ const { saveNews } = useCurrentUserContext();
+ const navigate = useNavigate();
+ const [formState, setFormState] = useState({
+  saveNews.savedNews: [],
+ });
+
+ const [saveNews, { error }] = useMutation(SAVE_NEWS);
+
+ const handleSaveNews = async event => {
+  event.preventDefault();
+
+  try {
+   let variables = {
+    saveNews.savedNews: formState.saveNews.savedNews,
+   };
+
+   const mutationResponse = await saveNews({
+    variables: variables,
+   });
+
+   console.log('Mutation response:', mutationResponse);
+   const { token, user } = mutationResponse.data.register;
+   loginUser(user, token);
+   // navigate('/dashboard');
+  } catch (e) {
+   // eslint-disable-next-line no-console
+   console.log(e);
+  }
+ };
+
 

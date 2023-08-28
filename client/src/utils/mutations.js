@@ -55,6 +55,7 @@ export const SAVE_NEWS = gql`
         language
         latest_publish_date
       }
+      token
     }
   }
 `;
