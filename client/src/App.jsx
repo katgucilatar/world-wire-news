@@ -9,7 +9,6 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import { useCookies } from "react-cookie";
 import Header from "./components/Header";
-import Footer from "./components/Footer";
 import { Outlet } from "react-router-dom";
 
 function App({ children }) {
@@ -37,7 +36,6 @@ function App({ children }) {
       <main>
         <Outlet>{children}</Outlet>
       </main>
-      <Footer />
     </ApolloProvider>
   );
 }
