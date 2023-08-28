@@ -1,23 +1,16 @@
-import { useState, useEffect } from 'react';
-import {
-  Container,
-  Col,
-  Form,
-  Button,
-  Card,
-  Row
-} from 'react-bootstrap';
+import { useState, useEffect } from "react";
+import { Container, Col, Form, Button, Card, Row } from "react-bootstrap";
 
-import Auth from '../utils/auth';
-import { saveNewsIds, getSavedNewsIds } from '../utils/localStorage';
-import { useMutation } from '@apollo/client';
-import { SAVE_NEWS } from '../utils/mutations';
+import Auth from "../utils/auth";
+import { saveNewsIds, getSavedNewsIds } from "../utils/localStorage";
+import { useMutation } from "@apollo/client";
+import { SAVE_NEWS } from "../utils/mutations";
 
 const SearchNews = () => {
   // create state for holding returned google api data
   const [searchedNews, setSearchedNews] = useState([]);
   // create state for holding our search field data
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState("");
 
   // create state to hold saved bookId values
   const [savedNewsIds, setSavedNewsIds] = useState(getSavedNewsIds());
@@ -40,27 +33,27 @@ const SearchNews = () => {
 
     try {
       const response = await fetch(
-        `https://api.worldnewsapi.com/search-news?api-key=38d818b814364e2c8cf44be7b62549c5&source-countries=${searchInput}`
+        `https://api.worldnewsapi.com/search-news?api-key=76c92a54c1ed409d97c7ca30981b71e1source-countries=${searchInput}`
       );
 
       if (!response.ok) {
-        throw new Error('something went wrong!');
+        throw new Error("something went wrong!");
       }
 
       const { items } = await response.json();
 
       const newsData = items.map((news) => ({
         newsId: news.id,
-        title: news.title || ['No author to display'],
+        title: news.title || ["No author to display"],
         summary: news.summary,
         source_country: news.source_country,
-        image: news.image || 'No image found',
-        url: news.url
-       // latest_publish_date: news.latest_publish_date
+        image: news.image || "No image found",
+        url: news.url,
+        // latest_publish_date: news.latest_publish_date
       }));
 
       setSearchedNews(newsData);
-      setSearchInput('');
+      setSearchInput("");
     } catch (err) {
       console.error(err);
     }
@@ -99,16 +92,16 @@ const SearchNews = () => {
             <Row>
               <Col xs={12} md={8}>
                 <Form.Control
-                  name='searchInput'
+                  name="searchInput"
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
-                  type='text'
-                  size='lg'
-                  placeholder='Search for a country here'
+                  type="text"
+                  size="lg"
+                  placeholder="Search for a country here"
                 />
               </Col>
               <Col xs={12} md={4}>
-                <Button type='submit' variant='success' size='lg'>
+                <Button type="submit" variant="success" size="lg">
                   Submit Search
                 </Button>
               </Col>
@@ -118,33 +111,44 @@ const SearchNews = () => {
       </div>
 
       <Container>
-        <h2 className='pt-5'>
+        <h2 className="pt-5">
           {searchedNews.length
             ? `Viewing ${searchedNews.length} results:`
-            : 'Search for a book to begin'}
+            : "Search for a book to begin"}
         </h2>
         <Row>
           {searchedNews.map((news) => {
             return (
               <Col md="4" key={news.newsId}>
-                <Card border='dark'>
+                <Card border="dark">
                   {news.image ? (
-                    <Card.Img src={news.image} alt={`Cover image for ${news.title}`} variant='top' />
+                    <Card.Img
+                      src={news.image}
+                      alt={`Cover image for ${news.title}`}
+                      variant="top"
+                    />
                   ) : null}
                   <Card.Body>
                     <Card.Title>{news.title}</Card.Title>
-                    <p className='small'>Source Country: {news.source_country}</p>
-                    <p className='small'>Language: {news.language}</p>
+                    <p className="small">
+                      Source Country: {news.source_country}
+                    </p>
+                    <p className="small">Language: {news.language}</p>
                     <Card.Text>{news.summary}</Card.Text>
                     <a href={news.url}>Read the full article here!</a>
                     {Auth.loggedIn() && (
                       <Button
-                        disabled={savedNewsIds?.some((savedNewsId) => savedNewsId === news.newsId)}
-                        className='btn-block btn-info'
-                        onClick={() => handleSaveNews(news.newsId)}>
-                        {savedNewsIds?.some((savedNewsId) => savedNewsId === news.newsId)
-                          ? 'This article has already been saved!'
-                          : 'Save this news article!'}
+                        disabled={savedNewsIds?.some(
+                          (savedNewsId) => savedNewsId === news.newsId
+                        )}
+                        className="btn-block btn-info"
+                        onClick={() => handleSaveNews(news.newsId)}
+                      >
+                        {savedNewsIds?.some(
+                          (savedNewsId) => savedNewsId === news.newsId
+                        )
+                          ? "This article has already been saved!"
+                          : "Save this news article!"}
                       </Button>
                     )}
                   </Card.Body>
