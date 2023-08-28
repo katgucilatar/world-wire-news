@@ -12,6 +12,7 @@ function Dashboard() {
   const mapContainer = useRef(null);
   const [news, setNews] = useState([]);
   const [locationDetails, setLocationDetails] = useState(null);
+  const [isNewsVisible, setIsNewsVisible] = useState(true);
 
   const fetchNewsForCountry = async (countryCode) => {
     const response = await fetch(
@@ -19,10 +20,9 @@ function Dashboard() {
     );
     const data = await response.json();
 
-    console.log("NewsAPI Response:", data); // Debugging: Logging NewsAPI response
-
     if (data && data.status === "ok" && Array.isArray(data.articles)) {
       setNews(data.articles);
+      setIsNewsVisible(true); // Make news box reappear each time new news is set
     } else {
       console.error("Unexpected data format from API:", data);
       setNews([]);
@@ -36,13 +36,11 @@ function Dashboard() {
     );
     const data = await response.json();
 
-    console.log("Mapbox Response:", data); // Debugging: Logging Mapbox API response
-
     if (data && data.features && data.features.length) {
       const placeName = data.features[0].place_name;
       const countryCode = data.features[0].context.find(
         (c) => c.id.indexOf("country") === 0
-      )?.short_code; // Extracting the country short code
+      )?.short_code;
 
       setLocationDetails(placeName);
       if (countryCode) {
@@ -78,9 +76,12 @@ function Dashboard() {
         )}
       </div>
 
-      {news.length > 0 && (
-        <div className={styles.newsInfoBox}>
-          <h4 className="m-0">Latest News</h4>
+      {news.length > 0 && isNewsVisible && (
+        <div
+          className={styles.newsInfoBox}
+          onClick={() => setIsNewsVisible(false)}
+        >
+          <h4 className={styles.newsHeading}>LATEST NEWS</h4>
           {news.map((newsItem, index) => (
             <div key={index} className={styles.newsItemContainer}>
               {newsItem.urlToImage && (
@@ -94,7 +95,6 @@ function Dashboard() {
                     src={newsItem.urlToImage}
                     alt={newsItem.title}
                     onError={(e) => {
-                      console.error("Failed to load image:", e);
                       e.target.style.display = "none";
                     }}
                   />
