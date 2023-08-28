@@ -11,9 +11,9 @@ function Header() {
       data-te-navbar-ref
     >
       <div className="flex w-full flex-wrap items-center justify-between px-3">
-        <div>
+        <Link to="/">
           <img src={logo} className="w-10" alt="WorldWire Icon"></img>
-        </div>
+        </Link>
         {isLoggedIn() ? (
           <>
             <Link to="/dashboard" className="text-blue-600">
