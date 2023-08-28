@@ -148,7 +148,7 @@ button {
   top: 20px;
   right: 20px;
   z-index: 1;
-  background: #e74c3c;
+  background: #2e368f;
   width: 55px;
   height: 55px;
   padding: 12.5px 0;
@@ -164,10 +164,12 @@ button {
 }
 .post-module .thumbnail .date .day {
   font-size: 18px;
+  color: white;
 }
 .post-module .thumbnail .date .month {
   font-size: 12px;
   text-transform: uppercase;
+  color: white;
 }
 .post-module .thumbnail img {
   display: block;
@@ -200,7 +202,7 @@ button {
   position: absolute;
   top: -34px;
   left: 0;
-  background: #e74c3c;
+  background: #2e368f;
   padding: 10px 15px;
   color: #FFFFFF;
   font-size: 14px;
@@ -217,7 +219,7 @@ button {
 .post-module .post-content .sub_title {
   margin: 0;
   padding: 0 0 20px;
-  color: #e74c3c;
+  color: rgba(37,99,235);
   font-size: 20px;
   font-weight: 400;
 }
