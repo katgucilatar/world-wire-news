@@ -82,7 +82,7 @@ const Landing = () => {
   {dummyNewsItems.slice(6, 11).map((news, index) => (
     <div key={news.id} >
       <div className={`border-b-2 border-newsGray ${index === 4 ? 'last:border-b-0' : ''}`}>
-        <h3 className='flex justify-right font-medium p-1'>{news.title}</h3>
+        <a href={news.url} className='flex justify-right font-medium p-1'>{news.title}</a>
       </div>
     </div>
   ))}

@@ -12,7 +12,9 @@ import { CurrentUserProvider } from "./context";
 import App from "./App";
 import Error from "./pages/Error";
 import Landing from "./pages/Landing";
+import Homepage from "./pages/Homepage";
 import Dashboard from "./pages/Dashboard";
+import SearchNews from "./pages/SearchNews";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
@@ -22,8 +24,15 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />} errorElement={<Error />}>
       <Route index element={<Landing />} />
+      <Route path="search-news" element={<SearchNews />} />
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
+      <Route path="homepage" element={
+          <ProtectedRoute>
+            <Homepage />
+          </ProtectedRoute>
+        }
+      />
       <Route path="dashboard" element={
           <ProtectedRoute>
             <Dashboard />

@@ -41,8 +41,9 @@ export const REGISTER_USER = gql`
 `;
 
 export const SAVE_NEWS = gql`
-  mutation saveNews($newNews: NewsInput!) {
-    saveNews(newNews: $newNews) {
+  mutation saveNews($saveNews: NewsInput!) {
+    saveNews(saveNews: $saveNews) {
+      currentUser{
       _id
       email
       savedNews {
@@ -55,6 +56,8 @@ export const SAVE_NEWS = gql`
         language
         latest_publish_date
       }
+    }
+    token
     }
   }
 `;

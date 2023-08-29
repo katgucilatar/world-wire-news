@@ -34,5 +34,4 @@ export const QUERY_NEWS = gql`
       latest_publish_date
       }
     }
-  }
 `;

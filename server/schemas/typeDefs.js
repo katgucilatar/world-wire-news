@@ -5,6 +5,7 @@ const typeDefs = `#graphql
     lastName: String
     email: String
     password: String
+    savedNews: [News]
     userDefaultNews: String
     selectedCountry: String
   }
@@ -51,7 +52,7 @@ type Mutation {
     selectedCountry: String  
   ): Auth
   login(email: String!, password: String!): Auth
-  saveNews(newNews: NewsInput!): User
+  saveNews(saveNews: NewsInput!): Auth
   deleteNews(newsId: ID!): User
 }
 
