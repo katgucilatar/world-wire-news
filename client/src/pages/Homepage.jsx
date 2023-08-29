@@ -6,6 +6,8 @@ import {
   Col
 } from 'react-bootstrap';
 
+import { useCurrentUserContext } from '../context/CurrentUser';
+
 import Auth from '../utils/auth';
 import { deleteNewsId } from '../utils/localStorage';
 import { useMutation, useQuery } from '@apollo/client';
@@ -13,8 +15,10 @@ import { QUERY_CURRENT_USER } from '../utils/queries';
 import { DELETE_NEWS } from '../utils/mutations';
 
 const Homepage = () => {
-  const { loading, data } = useQuery(QUERY_CURRENT_USER);
-  const userData = data?.currentUser || [];
+  const {currentUser} = useCurrentUserContext();
+  const { loading, data } = useQuery(QUERY_CURRENT_USER, {variables: {email:currentUser.email}});
+  console.log(data);
+  const userData = data?.currentUser || null;
   const [deleteNews, { error }] = useMutation(DELETE_NEWS);
 
   // create function that accepts the news's mongo _id value as param and deletes the news article from the database
@@ -42,25 +46,25 @@ const Homepage = () => {
   };
 
   // if data isn't here yet, say so
-  if (!userDataLength) {
+  if (!userData) {
     return <h2>LOADING...</h2>;
   }
 
   return (
     <>
-      <div fluid className="text-light bg-dark p-5">
+      <div className="text-light bg-dark p-5">
         <Container>
           <h1>Viewing saved news!</h1>
         </Container>
       </div>
       <Container>
         <h2 className='pt-5'>
-          {userData.savedNews.length
+          {userData?.savedNews.length
             ? `Viewing ${userData.savedNews.length} saved news`
             : 'You have no saved news!'}
         </h2>
         <Row>
-          {userData.savedNews.map((news) => {
+          {userData?.savedNews.map((news) => {
             return (
               <Col md="4">
                 <Card key={news.newsId} border='dark'>
