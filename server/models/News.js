@@ -9,10 +9,10 @@ const newsSchema = new Schema ({
         type: String,
         required: true,
     },
-    source_country: {
-        type: String,
-        required: true,
-    },
+    // source_country: {
+    //     type: String,
+    //     required: true,
+    // },
     newsId: {
         type: String,
         required: true,
@@ -24,9 +24,9 @@ const newsSchema = new Schema ({
     image: {
         type: String
     },
-    language: {
-        type: String
-    },
+    // language: {
+    //     type: String
+    // },
     latest_publish_date: {
         type: String
     }

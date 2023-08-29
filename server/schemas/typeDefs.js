@@ -52,7 +52,7 @@ type Mutation {
     selectedCountry: String  
   ): Auth
   login(email: String!, password: String!): Auth
-  saveNews(newNews: NewsInput!): User
+  saveNews(saveNews: NewsInput!): Auth
   deleteNews(newsId: ID!): User
 }
 `;
