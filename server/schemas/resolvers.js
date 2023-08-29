@@ -37,20 +37,24 @@ const resolvers = {
       return { token, currentUser: user };
     },
 
-    saveNews: async (parent, { userId, newsId }, context) => {
+    saveNews: async (parent, { saveNews }, context) => {
       if (context.user) {
-        return User.findOneAndUpdate(
-          { _id: userId },
+        const updatedUser = await User.findByIdAndUpdate(
+          { _id: context.user._id },
           {
-            $addToSet: { savedNews: newsId },
+            $addToSet: { savedNews: saveNews },
           },
           {
             new: true,
             runValidators: true,
           }
         );
+
+        const token = signToken(updatedUser);
+        return { token, currentUser: updatedUser };
+      } else {
+        throw new AuthenticationError("User not authenticated");
       }
-      throw AuthenticationError;
     },
 
     deleteNews: async (parent, { newsId }, context) => {
