@@ -16,9 +16,9 @@ const resolvers = {
       const token = signToken(user);
       return { token, currentUser: user };
 
-      
+
     },
-    
+
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
@@ -37,23 +37,24 @@ const resolvers = {
       return { token, currentUser: user };
     },
 
-    saveNews: async (parent, { userId, newsId }, context) => {
+    saveNews: async (parent, { saveNews }, context) => {
       if (context.user) {
-        return User.findOneAndUpdate(
-          { _id: userId },
+        const updatedUser = await User.findByIdAndUpdate(
+          { _id: context.user._id },
           {
-            $addToSet: { savedNews: newsId },
+            $addToSet: { savedNews: saveNews },
           },
           {
             new: true,
             runValidators: true,
           }
         );
-      }
-      throw AuthenticationError;
-      const token = signToken(user);
 
-      return { token, currentUser: user };
+        const token = signToken(updatedUser);
+        return { token, currentUser: updatedUser };
+      } else {
+        throw new AuthenticationError("User not authenticated");
+      }
     },
 
     deleteNews: async (parent, { newsId }, context) => {

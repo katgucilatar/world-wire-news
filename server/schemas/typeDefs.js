@@ -7,6 +7,7 @@ const typeDefs = `#graphql
     password: String
     userDefaultNews: String
     selectedCountry: String
+    savedNews: [News]
   }
 
   type Auth {
@@ -36,10 +37,10 @@ input NewsInput {
     latest_publish_date: String
 }
 
-  type Query {
-    currentUser(email: String!): User
-    news: [News]!
-  }
+type Query {
+  currentUser(email: String!): User
+  news: [News]!
+}
 
 type Mutation {
   register(
@@ -51,7 +52,7 @@ type Mutation {
     selectedCountry: String  
   ): Auth
   login(email: String!, password: String!): Auth
-  saveNews(newNews: NewsInput!): User
+  saveNews(saveNews: NewsInput!): Auth
   deleteNews(newsId: ID!): User
 }
 `;

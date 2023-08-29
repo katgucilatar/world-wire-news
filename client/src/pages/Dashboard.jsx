@@ -1,14 +1,13 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import mapboxgl from "mapbox-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
-import styles from "../Dashboard.module.css";
+import { useCallback, useEffect, useRef, useState } from 'react';
+import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import styles from '../Dashboard.module.css';
 import { useMutation } from '@apollo/client';
 import { SAVE_NEWS } from '../utils/mutations';
 
-
 const MAPBOX_TOKEN =
-  "pk.eyJ1Ijoic3dteXRob3MiLCJhIjoiY2xsbXc5MmE1MDRjMjNla3F6bDhueTV5OSJ9.cu9Y3UeEMkFTX45o0UDaSw";
-const NEWS_API_KEY = "76c92a54c1ed409d97c7ca30981b71e1";
+  'pk.eyJ1Ijoic3dteXRob3MiLCJhIjoiY2xsbXc5MmE1MDRjMjNla3F6bDhueTV5OSJ9.cu9Y3UeEMkFTX45o0UDaSw';
+const NEWS_API_KEY = '72854b184e9b4fb88d7b85d9362f3e4a';
 
 function Dashboard() {
   const map = useRef(null);
@@ -16,24 +15,23 @@ function Dashboard() {
   const [news, setNews] = useState([]);
   const [locationDetails, setLocationDetails] = useState(null);
   const [isNewsVisible, setIsNewsVisible] = useState(true);
-  
 
-  const fetchNewsForCountry = async (countryCode) => {
+  const fetchNewsForCountry = async countryCode => {
     const response = await fetch(
       `https://newsapi.org/v2/top-headlines?country=${countryCode}&apiKey=${NEWS_API_KEY}`
     );
     const data = await response.json();
 
-    if (data && data.status === "ok" && Array.isArray(data.articles)) {
+    if (data && data.status === 'ok' && Array.isArray(data.articles)) {
       setNews(data.articles);
       setIsNewsVisible(true); // Make news box reappear each time new news is set
     } else {
-      console.error("Unexpected data format from API:", data);
+      console.error('Unexpected data format from API:', data);
       setNews([]);
     }
   };
 
-  const onMapClick = useCallback(async (e) => {
+  const onMapClick = useCallback(async e => {
     const lngLat = e.lngLat;
     const response = await fetch(
       `https://api.mapbox.com/geocoding/v5/mapbox.places/${lngLat.lng},${lngLat.lat}.json?access_token=${MAPBOX_TOKEN}`
@@ -43,7 +41,7 @@ function Dashboard() {
     if (data && data.features && data.features.length) {
       const placeName = data.features[0].place_name;
       const countryCode = data.features[0].context.find(
-        (c) => c.id.indexOf("country") === 0
+        c => c.id.indexOf('country') === 0
       )?.short_code;
 
       setLocationDetails(placeName);
@@ -57,48 +55,50 @@ function Dashboard() {
     if (map.current) return;
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: "mapbox://styles/swmythos/cllq0tvmh00jm01p9d4q123ar",
+      style: 'mapbox://styles/swmythos/cllq0tvmh00jm01p9d4q123ar',
       center: [-74.5, 40],
       zoom: 2,
       pitch: 10,
       bearing: 0,
-      projection: "globe",
+      projection: 'globe',
       accessToken: MAPBOX_TOKEN,
     });
 
-    map.current.on("click", onMapClick);
+    map.current.on('click', onMapClick);
   }, [onMapClick]);
 
-    const [SavedNews, setSavedNews] = useState({
-      title: '',
-      summary: '',
-    });
-
+  const [savedNews, setSavedNews] = useState({
+    newsId: '',
+    title: '',
+    summary: '',
+    url: '',
+    image: '',
+  });
   const [saveNews, { error }] = useMutation(SAVE_NEWS);
 
-   const handleSaveNews = async newsItem => {
-     try {
-      console.log('newsItem' + newsItem)
-       let variables = {
-         newsItem: {
-           title: newsItem.title,
-           summary: newsItem.summary,
-           // Mr. Sneed don't forget to add parameters once you get the this working
-         },
-       };
-       console.log(variables)
+  const handleSaveNews = async newsItem => {
+    event.preventDefault();
+    try {
+      let variables = {
+        saveNews: {
+          newsId: newsItem.publishedAt + newsItem.source.name,
+          title: newsItem.title,
+          summary: newsItem.description,
+          url: newsItem.url,
+          image: newsItem.urlToImage,
+        },
+      };
 
-       const mutationResponse = await saveNews({
-         variables: variables,
-       });
+      const mutationResponse = await saveNews({
+        variables: variables,
+      });
 
-       console.log('Mutation response:', mutationResponse);
-       const { token, user } = mutationResponse.data.saveNews;
-       // Handle success or any necessary updates
-     } catch (e) {
-       console.log(e);
-     }
-   };
+      console.log('Mutation response:', mutationResponse);
+      const { token, currentUser } = mutationResponse.data.saveNews;
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <div className={styles.dashboardContainer}>
@@ -148,7 +148,7 @@ function Dashboard() {
               <p>{newsItem.description}</p>
               <button
                 className="float-right"
-                onClick={() => handleSaveNews(SavedNews)}
+                onClick={() => handleSaveNews(newsItem)}
               >
                 Save
               </button>

@@ -1,6 +1,6 @@
 const { Schema } = require('mongoose');
 
-const newsSchema = new Schema ({
+const newsSchema = new Schema({
     title: {
         type: String,
         required: true,
@@ -11,15 +11,15 @@ const newsSchema = new Schema ({
     },
     source_country: {
         type: String,
-        required: true,
+        required: false,
     },
     newsId: {
         type: String,
         required: true,
-      },
+    },
     url: {
         type: String,
-        required: true,
+        required: false,
     },
     image: {
         type: String

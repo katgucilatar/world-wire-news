@@ -6,13 +6,13 @@ export const getSavedNewsIds = () => {
     return savedNewsIds;
   };
   
-  export const saveNewsIds = (newsIdArr) => {
-    if (newsIdArr.length) {
-      localStorage.setItem('saved_news', JSON.stringify(newsIdArr));
-    } else {
-      localStorage.removeItem('saved_news');
-    }
-  };
+  // export const saveNewsIds = (newsIdArr) => {
+  //   if (newsIdArr.length) {
+  //     localStorage.setItem('saved_news', JSON.stringify(newsIdArr));
+  //   } else {
+  //     localStorage.removeItem('saved_news');
+  //   }
+  // };
   
   export const deleteNewsId = (newsId) => {
     const savedNewsIds = localStorage.getItem('saved_news')
