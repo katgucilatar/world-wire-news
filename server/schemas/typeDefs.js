@@ -5,6 +5,7 @@ const typeDefs = `#graphql
     lastName: String
     email: String
     password: String
+    savedNews: [News]
     userDefaultNews: String
     selectedCountry: String
   }
