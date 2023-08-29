@@ -2,19 +2,24 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { Link, useNavigate } from "react-router-dom";
 
-import { LOGIN_USER } from "../utils/mutations";
+import { LOGIN_USER, FORGOT_PASSWORD } from "../utils/mutations";
 
 import { useCurrentUserContext } from "../context/CurrentUser";
 
 export default function Login() {
   const { loginUser } = useCurrentUserContext();
   const navigate = useNavigate();
+
   const [formState, setFormState] = useState({
     email: "",
     password: "",
   });
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
+  const [resetFeedback, setResetFeedback] = useState(null);
 
   const [login, { error }] = useMutation(LOGIN_USER);
+  const [forgotPassword] = useMutation(FORGOT_PASSWORD);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -36,6 +41,22 @@ export default function Login() {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormState({ ...formState, [name]: value });
+  };
+
+  const handleForgotPassword = async () => {
+    try {
+      const { data } = await forgotPassword({
+        variables: { email: resetEmail },
+      });
+      if (data.forgotPassword.success) {
+        setResetFeedback(data.forgotPassword.message);
+      } else {
+        setResetFeedback("Failed to send reset email. Please try again!");
+      }
+    } catch (err) {
+      console.error("There was an issue resetting the password: ", err);
+      setResetFeedback("An error occurred. Please try again!");
+    }
   };
 
   return (
@@ -82,7 +103,25 @@ export default function Login() {
         <p>
           Need an account? Sign up <Link to="/register">here</Link>
         </p>
+        <p>
+          <button onClick={() => setShowForgotPassword(true)}>
+            Forgot Password
+          </button>
+        </p>
       </form>
+
+      {showForgotPassword && ( // Corrected this condition
+        <div>
+          <input
+            placeholder="Enter your email"
+            type="email"
+            value={resetEmail}
+            onChange={(e) => setResetEmail(e.target.value)}
+          />
+          <button onClick={handleForgotPassword}>Send Reset Email</button>
+          <p>{resetFeedback}</p>
+        </div>
+      )}
     </>
   );
 }
