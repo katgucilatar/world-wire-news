@@ -54,6 +54,25 @@ type Mutation {
   saveNews(newNews: NewsInput!): User
   deleteNews(newsId: ID!): User
 }
+
+
+type Mutatioin {
+  forgotPassword(email: String!): ForgotPasswordResponse!
+}
+
+type ForgotPasswordResponse {
+  success: Boolean!
+  message: String!
+}
+
+type Mutation {
+  tesetPassword(token: String!, newPassword: String!): ResetPasswordResponse!
+}
+
+type ResetPasswordReesponse {
+  success: Boolean!
+  messge: String!
+}
 `;
 
 module.exports = typeDefs;
