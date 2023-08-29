@@ -16,6 +16,9 @@ function Header() {
         </div>
         {isLoggedIn() ? (
           <>
+            <Link to="/homepage" className="text-blue-600">
+              Homepage
+            </Link>
             <Link to="/dashboard" className="text-blue-600">
               Dashboard
             </Link>
@@ -30,6 +33,9 @@ function Header() {
         ) : (
           <>
             <div className="py-2">
+              <Link to="/search-news" className="text-blue-600 mr-3">
+                Search News
+              </Link>
               <Link to="/login" className="text-blue-600 mr-3">
                 Login
               </Link>

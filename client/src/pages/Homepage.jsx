@@ -12,12 +12,12 @@ import { useMutation, useQuery } from '@apollo/client';
 import { QUERY_CURRENT_USER } from '../utils/queries';
 import { DELETE_NEWS } from '../utils/mutations';
 
-const SavedBooks = () => {
+const Homepage = () => {
   const { loading, data } = useQuery(QUERY_CURRENT_USER);
   const userData = data?.currentUser || [];
   const [deleteNews, { error }] = useMutation(DELETE_NEWS);
 
-  // create function that accepts the book's mongo _id value as param and deletes the book from the database
+  // create function that accepts the news's mongo _id value as param and deletes the news article from the database
   const handleDeleteNews = async (newsId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -85,4 +85,4 @@ const SavedBooks = () => {
   );
 };
 
-export default SavedNews;
+export default Homepage;
