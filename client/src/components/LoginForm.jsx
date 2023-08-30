@@ -66,12 +66,17 @@ export default function Login() {
           <p className="error-text">The provided credentials are incorrect</p>
         </div>
       ) : null}
+
+      <h1 className="text-2xl text-center mb-0 font-bold mt-4">World Wire</h1>
       <form
         id="login-form"
         onSubmit={handleFormSubmit}
-        className="bg-gray-100 p-6 rounded"
+        className="bg-newsGray p-6 rounded mx-4 h-5/6 my-5"
       >
-        <h2 className="text-2xl mb-10">Login</h2>
+        <div className="text-center mt-10">
+          <h2 className="text-xl mb-0 font-bold">Welcome Back</h2>
+          <h3 className="text-lg mb-3 font-bold">Log in to continue</h3>
+        </div>
         <label htmlFor="email" className="block mb-2">
           Email:
           <input
@@ -80,10 +85,10 @@ export default function Login() {
             type="email"
             value={formState.email}
             onChange={handleChange}
-            className="mt-1 p-2 w-full border rounded"
+            className="mt-1 p-2 mb-3 w-full border rounded"
           />
         </label>
-        <label htmlFor="password" className="block mb-2">
+        <label htmlFor="password" className="block mb-8">
           Password:
           <input
             placeholder="******"
@@ -93,35 +98,31 @@ export default function Login() {
             onChange={handleChange}
             className="mt-1 p-2 w-full border rounded"
           />
+          <p>
+            <Link
+              to="/forgotPassword"
+              className="float-right mt-1 text-xs text-blue-600"
+            >
+              Forgot Password?
+            </Link>
+          </p>
         </label>
+
         <button
           type="submit"
-          className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 mt-4"
+          className="bg-newsBlue text-white p-2 rounded hover:bg-blue-600 mt-4 w-full mb-5"
         >
           Login
         </button>
-        <p>
-          Need an account? Sign up <Link to="/register">here</Link>
-        </p>
-        <p>
-          <button onClick={() => setShowForgotPassword(true)}>
-            Forgot Password
-          </button>
-        </p>
-      </form>
 
-      {showForgotPassword && (
-        <div>
-          <input
-            placeholder="Enter your email"
-            type="email"
-            value={resetEmail}
-            onChange={(e) => setResetEmail(e.target.value)}
-          />
-          <button onClick={handleForgotPassword}>Send Reset Email</button>
-          <p>{resetFeedback}</p>
-        </div>
-      )}
+        <p className="font-bold text-center">
+          Need an account?{' '}
+          <Link to="/register" className="text-blue-600">
+            Sign up
+          </Link>
+        </p>
+        <p>{resetFeedback}</p>
+      </form>
     </>
   );
 }

@@ -17,8 +17,8 @@ import Dashboard from "./pages/Dashboard";
 import SearchNews from "./pages/SearchNews";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-
 import ProtectedRoute from "./components/ProtectedRoute";
+import ForgotPassword from "./pages/forgotPassword";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,6 +27,7 @@ const router = createBrowserRouter(
       <Route path="search-news" element={<SearchNews />} />
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
+      <Route path="forgotPassword" element={<ForgotPassword />} />
       <Route path="homepage" element={
           <ProtectedRoute>
             <Homepage />
