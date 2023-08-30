@@ -51,18 +51,22 @@ const resolvers = {
       return { token, currentUser: user };
     },
 
-    saveNews: async (parent, { userId, newsId }, context) => {
+    saveNews: async (parent, { saveNews }, context) => {
+      console.log(saveNews);
       if (context.user) {
-        return User.findOneAndUpdate(
-          { _id: userId },
+        const user = await User.findOneAndUpdate(
+          { _id: context.user._id },
           {
-            $addToSet: { savedNews: newsId },
+            $addToSet: { savedNews: saveNews },
           },
           {
             new: true,
             runValidators: true,
           }
         );
+        const token = signToken(user);
+
+        return { token, currentUser: user };
       }
       throw new AuthenticationError(
         "You need to be logged in to perform this action"
