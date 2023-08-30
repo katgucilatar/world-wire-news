@@ -94,7 +94,7 @@ const resolvers = {
       user.resetToken = resetToken;
       await user.save();
 
-      const emailStatus = sendResetEmail(email, resetToken);
+      const emailStatus = await sendResetEmail(email, resetToken);
 
       if (!emailStatus) {
         return {
@@ -116,7 +116,7 @@ const resolvers = {
         throw new Error("Invalid or expired token.");
       }
 
-      const hashedPassword = hashPassword(newPassword);
+      const hashedPassword = await hashPassword(newPassword);
 
       user.password = hashedPassword;
       user.resetToken = null; // Clear the reset token

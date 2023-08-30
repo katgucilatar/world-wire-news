@@ -19,7 +19,7 @@ const sendResetEmail = async (email, resetToken) => {
     },
   });
 
-  const resetLink = `https://yourwebsite.com/reset-password/${resetToken}`;
+  const resetLink = `${process.env.BASE_URL}/reset-password/${resetToken}`;
 
   const mailOptions = {
     from: process.env.SMTP_USER,

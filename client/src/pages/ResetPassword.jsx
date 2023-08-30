@@ -1,4 +1,4 @@
-import { useState } from "react"; // Don't forget to import useState
+import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useParams, useNavigate } from "react-router-dom";
 import { RESET_PASSWORD } from "../utils/mutations";
@@ -6,6 +6,7 @@ import { RESET_PASSWORD } from "../utils/mutations";
 function ResetPasswordPage() {
   const { token } = useParams();
   const [newPassword, setNewPassword] = useState("");
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   const [resetPassword] = useMutation(RESET_PASSWORD);
@@ -16,15 +17,18 @@ function ResetPasswordPage() {
         variables: { token, newPassword },
       });
       if (data && data.resetPassword && data.resetPassword.success) {
-        navigate("/login");
+        setMessage("Password reset successful. Redirecting to login...");
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
       } else {
-        console.error(
-          "Reset password failed: ",
+        setMessage(
           (data && data.resetPassword && data.resetPassword.message) ||
-            "No message provided."
+            "Reset password failed."
         );
       }
     } catch (err) {
+      setMessage("Error resetting password.");
       console.error("Error resetting password: ", err);
     }
   };
@@ -37,7 +41,10 @@ function ResetPasswordPage() {
         value={newPassword}
         onChange={(e) => setNewPassword(e.target.value)}
       />
-      <button onClick={handleReset}>Reset Password</button>
+      <button onClick={handleReset} disabled={!newPassword.trim()}>
+        Reset Password
+      </button>
+      {message && <p>{message}</p>}
     </div>
   );
 }
