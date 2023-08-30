@@ -80,11 +80,12 @@ function Dashboard() {
   const handleSaveNews = async newsItem => {
     event.preventDefault();
     try {
+      console.log(newsItem);
       let variables = {
         saveNews: {
           newsId: newsItem.publishedAt + newsItem.source.name + newsItem.author,
           title: newsItem.title,
-          summary: newsItem.description,
+          summary: newsItem.description || '',
           url: newsItem.url,
           image: newsItem.urlToImage,
         },
@@ -114,58 +115,58 @@ function Dashboard() {
 
       {news.length > 0 && isNewsVisible && (
         <>
-        <div className='absolute flex top-32 justify-center'>
-          <h4 className=" text-white  text-3xl text-center w-full top-0">LATEST NEWS</h4>
-        </div>
+          <div className="absolute flex top-32 justify-center">
+            <h4 className=" text-white  text-3xl text-center w-full top-0">
+              LATEST NEWS
+            </h4>
+          </div>
 
-        <div
-          className="mt-72 absolute p-5 bg-transparent max-w-[20rem] z-10 overflow-y-scroll h-[600px] rounded-5 shadow-md flex flex-col items-center"
-          onClick={() => setIsNewsVisible(false)}
-        >
-
-
-          {news.map((newsItem, index) => (
-            <div
-              key={index}
-              className="mb-5 p-4 bg-newsRed rounded-[0.375rem] shadow-md transition-transform duration-200 ease-in-out"
-            >
-              {newsItem.urlToImage && (
-                <a
-                  href={newsItem.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img
-                    className={styles.newsItemImage}
-                    src={newsItem.urlToImage}
-                    alt={newsItem.title}
-                    onError={e => {
-                      e.target.style.display = 'none';
-                    }}
-                  />
-                </a>
-              )}
-              <h5>
-                <a
-                  className={styles.newsTitleLink}
-                  href={newsItem.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {newsItem.title}
-                </a>
-              </h5>
-              <p>{newsItem.description}</p>
-              <button
-                className="float-right"
-                onClick={() => handleSaveNews(newsItem)}
+          <div
+            className="mt-72 absolute p-5 bg-transparent max-w-[20rem] z-10 overflow-y-scroll h-[600px] rounded-5 shadow-md flex flex-col items-center"
+            onClick={() => setIsNewsVisible(false)}
+          >
+            {news.map((newsItem, index) => (
+              <div
+                key={index}
+                className="mb-5 p-4 bg-newsRed rounded-[0.375rem] shadow-md transition-transform duration-200 ease-in-out"
               >
-                Save
-              </button>
-            </div>
-          ))}
-        </div>
-      </>
+                {newsItem.urlToImage && (
+                  <a
+                    href={newsItem.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      className={styles.newsItemImage}
+                      src={newsItem.urlToImage}
+                      alt={newsItem.title}
+                      onError={e => {
+                        e.target.style.display = 'none';
+                      }}
+                    />
+                  </a>
+                )}
+                <h5>
+                  <a
+                    className={styles.newsTitleLink}
+                    href={newsItem.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {newsItem.title}
+                  </a>
+                </h5>
+                <p>{newsItem.description}</p>
+                <button
+                  className="float-right"
+                  onClick={() => handleSaveNews(newsItem)}
+                >
+                  Save
+                </button>
+              </div>
+            ))}
+          </div>
+        </>
       )}
     </div>
   );

@@ -45,10 +45,8 @@ export default function ForgotPassword() {
           value={resetEmail}
           onChange={e => setResetEmail(e.target.value)}
         />
-        <button
-          className="bg-newsBlue text-white p-2 rounded hover:bg-blue-600 mt-4 w-full mb-5"
-          onClick={handleForgotPassword}
-        >Send Reset Email
+        <button className="bg-newsBlue text-white p-2 rounded hover:bg-blue-600 mt-4 w-full mb-5"
+         onClick={handleForgotPassword}>Send Reset Email
         </button>
 
         <p className="font-bold text-center">
