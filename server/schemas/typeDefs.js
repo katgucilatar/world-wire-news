@@ -26,6 +26,11 @@ const typeDefs = `#graphql
     latest_publish_date: String
 }
 
+type PasswordResetResponse {
+  success: Boolean!
+  message: String!
+}
+
 input NewsInput {
     newsId: ID!
     title: String
@@ -42,19 +47,21 @@ input NewsInput {
     news: [News]!
   }
 
-type Mutation {
-  register(
-    firstName: String!
-    lastName: String!
-    email: String!
-    password: String!
-    userDefaultNews: String 
-    selectedCountry: String  
-  ): Auth
-  login(email: String!, password: String!): Auth
-  saveNews(saveNews: NewsInput!): Auth
-  deleteNews(newsId: ID!): User
-}
+  type Mutation {
+    register(
+      firstName: String!
+      lastName: String!
+      email: String!
+      password: String!
+      userDefaultNews: String 
+      selectedCountry: String  
+    ): Auth
+    login(email: String!, password: String!): Auth
+    saveNews(saveNews: NewsInput!): Auth
+    deleteNews(newsId: ID!): User
+    forgotPassword(email: String!): PasswordResetResponse!
+    resetPassword(token: String!, newPassword: String!): PasswordResetResponse!
+  }
 `;
 
 module.exports = typeDefs;
