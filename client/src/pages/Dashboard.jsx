@@ -77,7 +77,8 @@ function Dashboard() {
   });
   const [saveNews, { error }] = useMutation(SAVE_NEWS);
 
-  const handleSaveNews = async (newsItem) => {
+  const handleSaveNews = async (newsItem, event) => {
+    event.stopPropagation();
     event.preventDefault();
     try {
       let variables = {
@@ -156,7 +157,7 @@ function Dashboard() {
                 <p>{newsItem.description}</p>
                 <button
                   className="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                  onClick={() => handleSaveNews(newsItem)}
+                  onClick={(event) => handleSaveNews(newsItem, event)}
                 >
                   Save
                 </button>
