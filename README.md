@@ -6,6 +6,7 @@ Introducing "WorldWire" - the ultimate platform for travelers to connect with ne
 - [Installation](#installation)
 - [Usage](#usage)
 - [Motivation](#motivation)
+- [Future Development](#future-development)
 - [Technologies](#technologies)
 - [Application](#application)
 - [Screenshots](#screenshots)
@@ -27,6 +28,13 @@ Introducing "WorldWire" - the ultimate platform for travelers to connect with ne
 * npm run develop
 ## Motivation
 Our motivation for this project was discussed between two of our memebers before the team was grouped, however they felt they wanted to make a news website featuring world-wide news. There are other website made where you can watch tv shows or series from around the world, so why not world news?
+## Future Development
+* Migrating away from Heroku; Digial Ocean, Humalect or Netlify.
+* Search Bar to Look for Locations; Look Through the Existing APIs for the Search Bar
+* Having The Option to Look at City and Town News Rather Than Just Country.
+* Using Flags and New Source Icons to match the Country Where the News is Being Retrieved From.
+* Adding a Secction in the User's Homepage That Pulls All Default News Headlines Chosen From Registration.
+* Adding a Page for "Request Again" After Sending an Email of Forgetting Password, Requesting a Code before Confirming New Password.
 ## Technologies
 1. React
 2. Express
@@ -42,7 +50,7 @@ Katrina: [GitHub](https://github.com/katgucilatar) -- [LinkedIn](https://www.lin
 Herb: [GitHub](https://github.com/HerbSneed) -- [LinkedIn](https://www.linkedin.com/in/herbsneed/) -- [Email](hmsneed@gmail.com)
 <br>
 <br>
-Illir: [GitHub](https://github.com/IlirHajdari) -- [LinkedIn]() -- [Email]()
+Illir: [GitHub](https://github.com/IlirHajdari) -- [Email](ilir.hajdari111@gmail.com)
 <br>
 <br>
 Chandler: [GitHub](https://github.com/Ch4nd1erB1ng) -- [Email](chandaman1001@gmail.com)
