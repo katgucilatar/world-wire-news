@@ -84,7 +84,7 @@ function Dashboard() {
         saveNews: {
           newsId: newsItem.publishedAt + newsItem.source.name + newsItem.author,
           title: newsItem.title,
-          summary: newsItem.description,
+          summary: newsItem.description || '',
           url: newsItem.url,
           image: newsItem.urlToImage,
         },
