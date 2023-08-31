@@ -4,6 +4,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import styles from "../Dashboard.module.css";
 import { useMutation } from "@apollo/client";
 import { SAVE_NEWS } from "../utils/mutations";
+import { QUERY_CURRENT_USER } from "../utils/queries";
 
 const MAPBOX_TOKEN =
   "pk.eyJ1Ijoic3dteXRob3MiLCJhIjoiY2xsbXc5MmE1MDRjMjNla3F6bDhueTV5OSJ9.cu9Y3UeEMkFTX45o0UDaSw";
@@ -15,6 +16,7 @@ function Dashboard() {
   const [news, setNews] = useState([]);
   const [locationDetails, setLocationDetails] = useState(null);
   const [isNewsVisible, setIsNewsVisible] = useState(true);
+  const userEmail = sessionStorage.getItem("currentUserEmail");
 
   const fetchNewsForCountry = async (countryCode) => {
     const response = await fetch(
@@ -75,26 +77,31 @@ function Dashboard() {
     url: "",
     image: "",
   });
-  const [saveNews, { error }] = useMutation(SAVE_NEWS);
-
+  const [saveNews, { error }] = useMutation(SAVE_NEWS, {
+    refetchQueries: [
+      { query: QUERY_CURRENT_USER, variables: { email: userEmail } },
+    ],
+  });
   const handleSaveNews = async (newsItem, event) => {
     event.stopPropagation();
     event.preventDefault();
-    try {
-      let variables = {
-        saveNews: {
-          newsId: newsItem.publishedAt + newsItem.source.name + newsItem.author,
-          title: newsItem.title,
-          summary: newsItem.description || "",
-          url: newsItem.url,
-          image: newsItem.urlToImage,
-        },
-      };
+    let variables = {
+      saveNews: {
+        newsId: newsItem.publishedAt + newsItem.source.name + newsItem.author,
+        title: newsItem.title,
+        summary: newsItem.description || "",
+        url: newsItem.url,
+        image: newsItem.urlToImage,
+      },
+    };
 
+    try {
       const mutationResponse = await saveNews({
         variables: variables,
+        refetchQueries: [{ query: QUERY_CURRENT_USER }],
       });
 
+      mutationResponse.data.saveNews = mutationResponse.data.saveNews || {};
       console.log("Mutation response:", mutationResponse);
       // const { token, currentUser } = mutationResponse.data.saveNews;
     } catch (e) {
