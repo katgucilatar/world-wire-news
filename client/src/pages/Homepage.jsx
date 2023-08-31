@@ -53,50 +53,97 @@ const Homepage = () => {
 
   return (
     <>
-      <div className="text-light bg-dark p-5">
-        <Container>
-          <h1>Viewing saved news!</h1>
-        </Container>
+      <div
+        className="
+      relative
+      bg-newsGray
+      h-full
+      w-full
+      top-0
+      "
+      >
+        <div
+          className="
+        text-center 
+        text-3xl 
+        font-bold 
+        pt-2
+        "
+        >
+          <h1 class>{userData?.firstName}'s Saved News</h1>
+        </div>
+        <div
+          className="
+        top-0 
+        w-full
+        "
+        >
+          <h2
+            className="
+          pt-0 
+          mb-2 
+          font-bold
+          text-center
+          "
+          >
+            {userData?.savedNews.length
+              ? `${userData.savedNews.length} Saved Headlines`
+              : 'You have no saved news!'}
+          </h2>
+          <div
+            className="
+          w-full
+          grid 
+          grid-cols-1 
+          gap-2
+          px-5"
+          >
+            {userData?.savedNews.map(news => {
+              return (
+                <div
+                  className="
+                    mb-2 
+                    w-full
+                    bg-newsGrayBlue 
+                    rounded 
+                    shadow-xl"
+                >
+                  <Card key={news.newsId}>
+                    {news.image ? (
+                      <Card.Img
+                        src={news.image}
+                        alt={`Cover image for ${news.title}`}
+                        variant="top"
+                        className="rounded shadow-xl"
+                      />
+                    ) : null}
+                    <Card.Body className="p-3">
+                      <Card.Title className="font-bold text-white text-lg">
+                        {news.title}
+                      </Card.Title>
+
+                      <Card.Text className="leading-relaxed text-md">
+                        {news.summary}
+                      </Card.Text>
+
+                      <a className="text-blue-600" href={news.url}>
+                        Read the full article here!
+                      </a>
+
+                      <Button
+                        className="btn-block text-red-600 btn-danger float-right"
+                        onClick={() => handleDeleteNews(news.newsId)}
+                      >
+                        Delete this article!
+                      </Button>
+                    </Card.Body>
+                  </Card>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
-      <Container>
-        <h2 className="pt-5">
-          {userData?.savedNews.length
-            ? `Viewing ${userData.savedNews.length} saved news`
-            : 'You have no saved news!'}
-        </h2>
-        <Row>
-          {userData?.savedNews.map(news => {
-            return (
-              <Col md="4">
-                <Card key={news.newsId} border="dark">
-                  {news.image ? (
-                    <Card.Img
-                      src={news.image}
-                      alt={`Cover image for ${news.title}`}
-                      variant="top"
-                    />
-                  ) : null}
-                  <Card.Body>
-                    <Card.Title>{news.title}</Card.Title>
-                    <p className="small">
-                      Source Country: {news.source_country}
-                    </p>
-                    <p className="small">Language: {news.language}</p>
-                    <Card.Text>{news.summary}</Card.Text>
-                    <a href={news.url}>Read the full article here!</a>
-                    <Button
-                      className="btn-block btn-danger"
-                      onClick={() => handleDeleteNews(news.newsId)}
-                    >
-                      Delete this article!
-                    </Button>
-                  </Card.Body>
-                </Card>
-              </Col>
-            );
-          })}
-        </Row>
-      </Container>
     </>
   );
 };

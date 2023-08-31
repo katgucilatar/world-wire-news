@@ -90,82 +90,88 @@ const SearchNews = () => {
 
   return (
     <>
-      <div className="text-light bg-dark p-5">
-        <Container>
-          <h1>News from Every Country!</h1>
-          <Form onSubmit={handleFormSubmit}>
-            <Row>
-              <Col xs={12} md={8}>
-                <Form.Control
-                  name="searchInput"
-                  value={searchInput}
-                  onChange={(e) => setSearchInput(e.target.value)}
-                  type="text"
-                  size="lg"
-                  placeholder="Search for a country here"
-                />
-              </Col>
-              <Col xs={12} md={4}>
-                <Button type="submit" variant="success" size="lg">
-                  Submit Search
-                </Button>
-              </Col>
-            </Row>
-          </Form>
-          <h2>See a news article you wanna save? Click <Link to="/register" className="text-blue-600">
-            here
-          </Link> to make an account!</h2>
-        </Container>
-      </div>
+      <>
+        <div className="text-light bg-dark p-5">
+          <Container>
+            <h1>News from Every Country!</h1>
+            <Form onSubmit={handleFormSubmit}>
+              <Row>
+                <Col xs={12} md={8}>
+                  <Form.Control
+                    name="searchInput"
+                    value={searchInput}
+                    onChange={e => setSearchInput(e.target.value)}
+                    type="text"
+                    size="lg"
+                    placeholder="Search for a country here"
+                  />
+                </Col>
+                <Col xs={12} md={4}>
+                  <Button type="submit" variant="success" size="lg">
+                    Submit Search
+                  </Button>
+                </Col>
+              </Row>
+            </Form>
+            <h2>
+              See a news article you wanna save? Click{' '}
+              <Link to="/register" className="text-blue-600">
+                here
+              </Link>{' '}
+              to make an account!
+            </h2>
+          </Container>
+        </div>
 
-      <Container>
-        <h2 className="pt-5">
-          {searchedNews.length
-            ? `Viewing ${searchedNews.length} results:`
-            : "Search for a country to begin"}
-        </h2>
-        <Row>
-          {searchedNews.map((news) => {
-            return (
-              <Col md="4" key={news.newsId}>
-                <Card border="dark">
-                  {news.image ? (
-                    <Card.Img
-                      src={news.image}
-                      alt={`Cover image for ${news.title}`}
-                      variant="top"
-                    />
-                  ) : null}
-                  <Card.Body>
-                    <Card.Title>{news.title}</Card.Title>
-                    <p className="small">
-                      Source Country: {news.source_country}
-                    </p>
-                    <p className="small">Language: {news.language}</p>
-                    <Card.Text>{news.summary}</Card.Text>
-                    <a href={news.url}>Read the full article here!</a>
-                    {Auth.loggedIn() && (
-                      <Button
-                        disabled={savedNewsIds?.some(
-                          (savedNewsId) => savedNewsId === news.newsId
-                        )}
-                        className="btn-block btn-info"
-                        onClick={() => handleSaveNews(news.newsId)}
-                      >
-                        {savedNewsIds?.some(
-                          (savedNewsId) => savedNewsId === news.newsId
-                        )
-                          ? "This article has already been saved!"
-                          : "Save this news article!"}
-                      </Button>
-                    )}
-                  </Card.Body>
-                </Card>
-              </Col>
-            );
-          })}
-        </Row>
-      </Container>
+        <Container>
+          <h2 className="pt-5">
+            {searchedNews.length
+              ? `Viewing ${searchedNews.length} results:`
+              : 'Search for a country to begin'}
+          </h2>
+          <Row>
+            {searchedNews.map(news => {
+              return (
+                <Col md="4" key={news.newsId}>
+                  <Card border="dark">
+                    {news.image ? (
+                      <Card.Img
+                        src={news.image}
+                        alt={`Cover image for ${news.title}`}
+                        variant="top"
+                      />
+                    ) : null}
+                    <Card.Body>
+                      <Card.Title>{news.title}</Card.Title>
+                      <p className="small">
+                        Source Country: {news.source_country}
+                      </p>
+                      <p className="small">Language: {news.language}</p>
+                      <Card.Text>{news.summary}</Card.Text>
+                      <a href={news.url}>Read the full article here!</a>
+                      {Auth.loggedIn() && (
+                        <Button
+                          disabled={savedNewsIds?.some(
+                            savedNewsId => savedNewsId === news.newsId
+                          )}
+                          className="btn-block btn-info"
+                          onClick={() => handleSaveNews(news.newsId)}
+                        >
+                          {savedNewsIds?.some(
+                            savedNewsId => savedNewsId === news.newsId
+                          )
+                            ? 'This article has already been saved!'
+                            : 'Save this news article!'}
+                        </Button>
+                      )}
+                    </Card.Body>
+                  </Card>
+                </Col>
+              );
+            })}
+          </Row>
+        </Container>
+      </>
     </>
   );
 };

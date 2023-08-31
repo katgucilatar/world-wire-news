@@ -40,6 +40,7 @@ export default function Registration() {
         variables: variables,
       });
 
+      console.log('Mutation response:', mutationResponse);
       const { token, currentUser } = mutationResponse.data.register;
       loginUser(currentUser, token);
       navigate('/dashboard');
@@ -66,7 +67,7 @@ export default function Registration() {
         onSubmit={handleFormSubmit}
         className="bg-gray-100 p-6 rounded"
       >
-        <h2 className="text-2xl text-center mb-5 font-bold mt-4">Register</h2>
+        <h2 className="text-2xl mb-10">Register</h2>
 
         <label htmlFor="firstName" className="block mb-2">
           First name:
@@ -113,20 +114,20 @@ export default function Registration() {
           />
         </label>
 
-        <label htmlFor="userDefaultNews" className="block relative mb-2">
+        <label htmlFor="userDefaultNews" className="block mb-2">
           Default News Category:
           <select
             name="userDefaultNews"
             value={formState.userDefaultNews}
             onChange={handleChange}
-            className="mt-1 p-2 w-full border rounded appearance-none"
+            className="mt-1 p-2 w-full border rounded"
           >
             <option value="World">World</option>
             <option value="Select a country">Select a country</option>
           </select>
         </label>
         {formState.userDefaultNews === 'Select a country' && (
-          <div className="mt-1">
+          <>
             <label htmlFor="selectedCountry" className="block mb-2">
               Selected Country:
               <input
@@ -137,20 +138,17 @@ export default function Registration() {
                 className="mt-1 p-2 w-full border rounded"
               />
             </label>
-          </div>
+          </>
         )}
 
         <button
           type="submit"
-          className="bg-newsBlue text-white p-2 rounded hover:bg-blue-600 mt-4 w-full mb-5"
+          className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 mt-4"
         >
           Sign Up
         </button>
         <p className="mt-4">
-          Already have an account? Login{' '}
-          <Link to="/login" className="text-blue-600">
-            here
-          </Link>
+          Already have an account? Login <Link to="/login">here</Link>
         </p>
       </form>
     </>
