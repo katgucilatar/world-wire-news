@@ -95,7 +95,7 @@ function Dashboard() {
       });
 
       console.log('Mutation response:', mutationResponse);
-      // const { token, currentUser } = mutationResponse.data.saveNews;
+      const { token, currentUser } = mutationResponse.data.saveNews;
     } catch (e) {
       console.log(e);
     }
