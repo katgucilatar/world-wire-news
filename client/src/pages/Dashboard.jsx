@@ -95,7 +95,7 @@ function Dashboard() {
       });
 
       console.log('Mutation response:', mutationResponse);
-      const { token, currentUser } = mutationResponse.data.saveNews;
+      // const { token, currentUser } = mutationResponse.data.saveNews;
     } catch (e) {
       console.log(e);
     }
@@ -106,20 +106,29 @@ function Dashboard() {
       <div ref={mapContainer} className={styles.dashboardMapContainer}>
         {locationDetails && (
           <div className={styles.locationInfoBox}>
-            <h4>Location Details</h4>
+            {/* <h4></h4> */}
             <p>{locationDetails}</p>
           </div>
         )}
       </div>
 
       {news.length > 0 && isNewsVisible && (
+        <>
+        <div className='absolute flex top-32 justify-center'>
+          <h4 className=" text-white  text-3xl text-center w-full top-0">LATEST NEWS</h4>
+        </div>
+
         <div
-          className={styles.newsInfoBox}
+          className="mt-72 absolute p-5 bg-transparent max-w-[20rem] z-10 overflow-y-scroll h-[600px] rounded-5 shadow-md flex flex-col items-center"
           onClick={() => setIsNewsVisible(false)}
         >
-          <h4 className={styles.newsHeading}>LATEST NEWS</h4>
+
+
           {news.map((newsItem, index) => (
-            <div key={index} className={styles.newsItemContainer}>
+            <div
+              key={index}
+              className="mb-5 p-4 bg-newsRed rounded-[0.375rem] shadow-md transition-transform duration-200 ease-in-out"
+            >
               {newsItem.urlToImage && (
                 <a
                   href={newsItem.url}
@@ -156,6 +165,7 @@ function Dashboard() {
             </div>
           ))}
         </div>
+      </>
       )}
     </div>
   );
