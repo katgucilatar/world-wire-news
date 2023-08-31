@@ -41,8 +41,8 @@ export default function Registration() {
       });
 
       console.log('Mutation response:', mutationResponse);
-      const { token, user } = mutationResponse.data.register;
-      loginUser(user, token);
+      const { token, currentUser } = mutationResponse.data.register;
+      loginUser(currentUser, token);
       navigate('/dashboard');
     } catch (e) {
       // eslint-disable-next-line no-console
