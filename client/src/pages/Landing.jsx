@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { getHeadlines } from '../utils/news-api';
 import { dummyNewsItems } from '../../../_misc/hs_dummyData';
 import '../../src/effects.css';
 
@@ -67,8 +66,7 @@ const Landing = () => {
           <div className="post-content">
             <div className="category">Photos</div>
             <h1 className='title'>{news.title}</h1>
-            <h2 className="sub_title">Subtitle</h2>
-            <p className="description">Description/First Sentence</p>
+            <p className="description">{news.summary}</p>
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Container, Col, Form, Button, Card, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 import Auth from "../utils/auth";
 import { saveNewsIds, getSavedNewsIds } from "../utils/localStorage";
@@ -111,6 +112,9 @@ const SearchNews = () => {
               </Col>
             </Row>
           </Form>
+          <h2>See a news article you wanna save? Click <Link to="/register" className="text-blue-600">
+            here
+          </Link> to make an account!</h2>
         </Container>
       </div>
 

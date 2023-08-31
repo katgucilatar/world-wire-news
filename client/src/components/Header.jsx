@@ -21,6 +21,9 @@ function Header() {
             <Link to="/homepage" className="text-blue-600">
               Homepage
             </Link>
+            <Link to="/search-news" className="text-blue-600 mr-3">
+                Search News
+              </Link>
             <Link to="/dashboard" className="text-blue-600">
               Dashboard
             </Link>
