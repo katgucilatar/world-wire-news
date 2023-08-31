@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
-
 import { Container, Card, Button, Row, Col } from 'react-bootstrap';
-
 import { useCurrentUserContext } from '../context/CurrentUser';
 
 import Auth from '../utils/auth';
@@ -16,7 +14,7 @@ const Homepage = () => {
   const { loading, data } = useQuery(QUERY_CURRENT_USER, {
     variables: { email: currentUser.email },
   });
-  console.log(data);
+
   const userData = data?.currentUser || null;
   // const [userData, setUserData] = useState(data?.currentUser || null);
   const [deleteNews, { error }] = useMutation(DELETE_NEWS);
