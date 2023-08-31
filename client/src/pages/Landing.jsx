@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Container, Col, Form, Button, Card, Row } from "react-bootstrap";
 import '../../src/effects.css';
+import landingpage from '/landing_page_image.jpeg';
 
 
 
@@ -86,9 +87,14 @@ const Landing = () => {
 
   return (
     <>
+      <div className="bg-black h-screen">
+        <img
+          className="h-full w-full object-cover"
+          src={landingpage}
+          alt="Landing Page Image"
+        ></img>
 
-      <Container style={styles.container}>
-        <h1 style={styles.heading}>Major News From Around the World!</h1>
+        {/* <h1 style={styles.heading}>Major News From Around the World!</h1>
         <Row>
           {newsItems.map((news) => {
             return (
@@ -114,8 +120,8 @@ const Landing = () => {
               </Col>
             );
           })}
-        </Row>
-      </Container>
+        </Row> */}
+      </div>
     </>
   );
 };

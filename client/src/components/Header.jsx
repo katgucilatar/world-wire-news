@@ -19,6 +19,7 @@ function Header() {
         <div className="flex items-center">
           <Link to="/" className="flex items-center ml-2">
             <img src={logo} className="w-10 sm:w-14" alt="WorldWire Icon" />
+            <h1 className='ml-3 text-lg font-bold'>WORLD WIRE</h1>
           </Link>
         </div>
 
