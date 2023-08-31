@@ -1,18 +1,19 @@
-import { useState } from "react";
-import { useMutation } from "@apollo/client";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 import { LOGIN_USER, FORGOT_PASSWORD } from "../utils/mutations";
 
-import { useCurrentUserContext } from "../context/CurrentUser";
+import { useCurrentUserContext } from '../context/CurrentUser';
 
 export default function Login() {
   const { loginUser } = useCurrentUserContext();
   const navigate = useNavigate();
 
   const [formState, setFormState] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [resetEmail, setResetEmail] = useState("");
@@ -21,7 +22,7 @@ export default function Login() {
   const [login, { error }] = useMutation(LOGIN_USER);
   const [forgotPassword] = useMutation(FORGOT_PASSWORD);
 
-  const handleFormSubmit = async (event) => {
+  const handleFormSubmit = async event => {
     event.preventDefault();
     try {
       const mutationResponse = await login({
@@ -30,15 +31,15 @@ export default function Login() {
           password: formState.password,
         },
       });
-      const { token, user } = mutationResponse.data.login;
-      loginUser(user, token);
-      navigate("/dashboard");
+      const { token, currentUser } = mutationResponse.data.login;
+      loginUser(currentUser, token);
+      navigate('/dashboard');
     } catch (e) {
       console.log(e);
     }
   };
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     const { name, value } = event.target;
     setFormState({ ...formState, [name]: value });
   };

@@ -1,10 +1,6 @@
-import {
-  Container,
-  Card,
-  Button,
-  Row,
-  Col
-} from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+
+import { Container, Card, Button, Row, Col } from 'react-bootstrap';
 
 import { useCurrentUserContext } from '../context/CurrentUser';
 
@@ -15,14 +11,19 @@ import { QUERY_CURRENT_USER } from '../utils/queries';
 import { DELETE_NEWS } from '../utils/mutations';
 
 const Homepage = () => {
-  const {currentUser} = useCurrentUserContext();
-  const { loading, data } = useQuery(QUERY_CURRENT_USER, {variables: {email:currentUser.email}});
+  const { currentUser } = useCurrentUserContext();
+  console.log(currentUser);
+  const { loading, data } = useQuery(QUERY_CURRENT_USER, {
+    variables: { email: currentUser.email },
+  });
   console.log(data);
   const userData = data?.currentUser || null;
+  // const [userData, setUserData] = useState(data?.currentUser || null);
   const [deleteNews, { error }] = useMutation(DELETE_NEWS);
+  // useEffect(() => setUserData(data?.currentUser || null), [data]);
 
   // create function that accepts the news's mongo _id value as param and deletes the news article from the database
-  const handleDeleteNews = async (newsId) => {
+  const handleDeleteNews = async newsId => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
@@ -58,24 +59,35 @@ const Homepage = () => {
         </Container>
       </div>
       <Container>
-        <h2 className='pt-5'>
+        <h2 className="pt-5">
           {userData?.savedNews.length
             ? `Viewing ${userData.savedNews.length} saved news`
             : 'You have no saved news!'}
         </h2>
         <Row>
-          {userData?.savedNews.map((news) => {
+          {userData?.savedNews.map(news => {
             return (
               <Col md="4">
-                <Card key={news.newsId} border='dark'>
-                  {news.image ? <Card.Img src={news.image} alt={`Cover image for ${news.title}`} variant='top' /> : null}
+                <Card key={news.newsId} border="dark">
+                  {news.image ? (
+                    <Card.Img
+                      src={news.image}
+                      alt={`Cover image for ${news.title}`}
+                      variant="top"
+                    />
+                  ) : null}
                   <Card.Body>
                     <Card.Title>{news.title}</Card.Title>
-                    <p className='small'>Source Country: {news.source_country}</p>
-                    <p className='small'>Language: {news.language}</p>
+                    <p className="small">
+                      Source Country: {news.source_country}
+                    </p>
+                    <p className="small">Language: {news.language}</p>
                     <Card.Text>{news.summary}</Card.Text>
                     <a href={news.url}>Read the full article here!</a>
-                    <Button className='btn-block btn-danger' onClick={() => handleDeleteNews(news.newsId)}>
+                    <Button
+                      className="btn-block btn-danger"
+                      onClick={() => handleDeleteNews(news.newsId)}
+                    >
                       Delete this article!
                     </Button>
                   </Card.Body>
