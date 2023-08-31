@@ -59,10 +59,10 @@ const Landing = () => {
     heading: {
       backgroundImage: 'linear-gradient(blue, white)',
       borderRadius: '15px 50px',
-      fontFamily: 'Didot, serif',
+      fontFamily: 'Impact',
       minHeight: 50,
       lineHeight: 3.5,
-      fontSize: '2rem',
+      fontSize: '3rem',
       color: '#000080',
       padding: '0 20px',
     },

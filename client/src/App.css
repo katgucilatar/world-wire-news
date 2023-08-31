@@ -257,3 +257,13 @@ input {
   margin: 25px;
   padding: 25px;
 }
+.navlink {
+  font-family: 'Impact';
+  font-size: 1.2rem;
+  color: navy;
+}
+.navlink:hover {
+  background-color: navy;
+  color: white;
+  padding: 10px;
+}
