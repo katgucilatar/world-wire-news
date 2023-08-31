@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { getHeadlines } from '../utils/news-api';
-import { dummyNewsItems } from '../../../_misc/hs_dummyData';
+import { useState, useEffect } from 'react';
+import { Container, Col, Form, Button, Card, Row } from "react-bootstrap";
 import '../../src/effects.css';
 
 
@@ -10,25 +9,30 @@ const Landing = () => {
 
   useEffect(() => {
     const fetchNews = async () => {
-      try {
-        // const response = await getHeadlines();
 
-        // if (!response.ok) {
-        //   throw new Error('something went wrong!');
-        // }
+        var apiKey = "ab9c7cce208a4d04b3ce75bbf6ca7809";
+    
+        try {
+          const response = await fetch(
+            `https://api.worldnewsapi.com/search-news?api-key=${apiKey}&source-countries=au,eu,us,cn,mx,ru&earliest-publish-date=2023-08-23`
+          );
+    
+          if (!response.ok) {
+            throw new Error("something went wrong!");
+          }
+    
+          const {news}  = await response.json();
+    
+          const newsData = news.map((news) => ({
+            newsId: news.id,
+            title: news.title,
+            summary: news.summary,
+            source_country: news.source_country,
+            image: news.image,
+            url: news.url
+          }));
 
-        // const formatted = await response.json();
-        // const { items } = formatted;
-
-        // const newsData = dummyNewsItems.map((news) => ({
-        //   newsId: news.id,
-        //   title: news.title,
-        //   source_country: news.source_country,
-        //   image: news.image,
-        //   url: news.url,
-        // }));
-
-        setNewsItems(dummyNewsItems);
+        setNewsItems(newsData);
       } catch (err) {
         console.error(err);
       }
@@ -39,56 +43,38 @@ const Landing = () => {
   }, []);
 
   return (
-  <>
-  
-   <div className="bg-white h-10 py-1 border-t-2 border-b-2 border-newsBlue overflow-hidden">
+    <>
 
-    <h1 className="page-title news-ticker inline-block">
-    {dummyNewsItems.length > 0 && (
-            <span >
-              {dummyNewsItems.map((news) => news.title).join(' • ')}
-            </span>
-          )}
-    </h1>
- 
-   </div>
-  
-<section id="top-five-hl" className="container">
-    {dummyNewsItems.slice(0, 5).map((news, index) => (
-      <div className="column">
-        <div className="post-module" key={news.id} >
-          <div className="thumbnail">
-            <div className="date">
-              <div className="day">28</div>
-              <div className="month">Aug</div>
-            </div>
-            <div><img className='w-full' src={news.image} alt={`Image for ${news.title}`} /></div>
-          </div>
-          <div className="post-content">
-            <div className="category">Photos</div>
-            <h1 className='title'>{news.title}</h1>
-            <h2 className="sub_title">Subtitle</h2>
-            <p className="description">Description/First Sentence</p>
-          </div>
-        </div>
-      </div>
-    ))}
-</section>
-
-<section id="more-news-hl" className="grid grid-cols-1 gap-y-2 px-2 mt-2">
-  <div>
-  <h2 className='border-t-2 border-b-2 py-1 border-newsBlue h-10 font-bold'> More News Headlines</h2>
-  </div>
-  {dummyNewsItems.slice(6, 11).map((news, index) => (
-    <div key={news.id} >
-      <div className={`border-b-2 border-newsGray ${index === 4 ? 'last:border-b-0' : ''}`}>
-        <a href={news.url} className='flex justify-right font-medium p-1'>{news.title}</a>
-      </div>
-    </div>
-  ))}
-</section>
-  </>
-
-)};
+      <Container>
+        <h1>Major News From Around the World!</h1>
+        <Row>
+          {newsItems.map((news) => {
+            return (
+              <Col md="4" key={news.newsId}>
+                <Card border="dark">
+                  {news.image ? (
+                    <Card.Img
+                      src={news.image}
+                      alt={`Cover image for ${news.title}`}
+                      variant="top"
+                    />
+                  ) : null}
+                  <Card.Body>
+                    <Card.Title>{news.title}</Card.Title>
+                    <p className="small">
+                      Source Country: {news.source_country}
+                    </p>
+                    <Card.Text>{news.summary}</Card.Text>
+                    <a href={news.url}>Read the full article here!</a>
+                  </Card.Body>
+                </Card>
+              </Col>
+            );
+          })}
+        </Row>
+      </Container>
+    </>
+  );
+};
 
 export default Landing;
