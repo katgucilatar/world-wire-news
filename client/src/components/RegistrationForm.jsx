@@ -40,6 +40,7 @@ export default function Registration() {
         variables: variables,
       });
 
+      console.log('Mutation response:', mutationResponse);
       const { token, currentUser } = mutationResponse.data.register;
       loginUser(currentUser, token);
       navigate('/dashboard');

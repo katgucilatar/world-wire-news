@@ -43,21 +43,21 @@ export const REGISTER_USER = gql`
 export const SAVE_NEWS = gql`
   mutation saveNews($saveNews: NewsInput!) {
     saveNews(saveNews: $saveNews) {
-      currentUser {
-        _id
-        email
-        savedNews {
-          newsId
-          title
-          summary
-          source_country
-          url
-          image
-          language
-          latest_publish_date
-        }
+      currentUser{
+      _id
+      email
+      savedNews {
+        newsId
+        title
+        summary
+        source_country
+        url
+        image
+        language
+        latest_publish_date
       }
-      token
+    }
+    token
     }
   }
 `;

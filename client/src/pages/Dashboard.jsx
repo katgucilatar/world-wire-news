@@ -7,7 +7,7 @@ import { SAVE_NEWS } from '../utils/mutations';
 
 const MAPBOX_TOKEN =
   'pk.eyJ1Ijoic3dteXRob3MiLCJhIjoiY2xsbXc5MmE1MDRjMjNla3F6bDhueTV5OSJ9.cu9Y3UeEMkFTX45o0UDaSw';
-const NEWS_API_KEY = '72854b184e9b4fb88d7b85d9362f3e4a';
+const NEWS_API_KEY = '0aa43dd5018e4447ac45d86caf10d084';
 
 function Dashboard() {
   const map = useRef(null);
@@ -95,7 +95,7 @@ function Dashboard() {
       });
 
       console.log('Mutation response:', mutationResponse);
-      // const { token, currentUser } = mutationResponse.data.saveNews;
+      const { token, currentUser } = mutationResponse.data.saveNews;
     } catch (e) {
       console.log(e);
     }
