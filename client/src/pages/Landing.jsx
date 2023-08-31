@@ -42,30 +42,73 @@ const Landing = () => {
     
   }, []);
 
+  const styles = {
+    container: {
+      display: 'flex',
+      justifyContent: 'center',
+      margin: 20,
+    },
+    card: {
+      margin: 20,
+      background: '#e8eaf6',
+      display: 'flex',
+      justifyContent: 'center',
+      border: '2px solid #00080',
+      borderRadius: '20px',
+    },
+    heading: {
+      backgroundImage: 'linear-gradient(blue, white)',
+      borderRadius: '15px 50px',
+      fontFamily: 'Didot, serif',
+      minHeight: 50,
+      lineHeight: 3.5,
+      fontSize: '2rem',
+      color: '#000080',
+      padding: '0 20px',
+    },
+    image: {
+      borderRadius: '10px',
+      width: '200px',
+      height: '200px',
+      padding: 15,
+    },
+    title: {
+      fontSize: '1.5rem',
+      color: 'black',
+      fontFamily: 'Didot, serif',
+      padding: 20,
+    },
+    content: {
+      padding: 20,
+      fontFamily: 'Didot, serif',
+    },
+  };
+
   return (
     <>
 
-      <Container>
-        <h1>Major News From Around the World!</h1>
+      <Container style={styles.container}>
+        <h1 style={styles.heading}>Major News From Around the World!</h1>
         <Row>
           {newsItems.map((news) => {
             return (
               <Col md="4" key={news.newsId}>
-                <Card border="dark">
+                <Card style={styles.card} border="dark">
                   {news.image ? (
                     <Card.Img
                       src={news.image}
                       alt={`Cover image for ${news.title}`}
                       variant="top"
+                      style={styles.image}
                     />
                   ) : null}
                   <Card.Body>
-                    <Card.Title>{news.title}</Card.Title>
-                    <p className="small">
+                    <Card.Title style={styles.title}>{news.title}</Card.Title>
+                    <p style={styles.content} className="small">
                       Source Country: {news.source_country}
                     </p>
-                    <Card.Text>{news.summary}</Card.Text>
-                    <a href={news.url}>Read the full article here!</a>
+                    <Card.Text style={styles.content}>{news.summary}</Card.Text>
+                    <a href={news.url} style={styles.content}>Read the full article here!</a>
                   </Card.Body>
                 </Card>
               </Col>

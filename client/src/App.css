@@ -252,3 +252,8 @@ input {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.news-card {
+  display: flex;
+  margin: 25px;
+  padding: 25px;
+}
