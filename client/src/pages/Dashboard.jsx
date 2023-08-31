@@ -7,7 +7,7 @@ import { SAVE_NEWS } from '../utils/mutations';
 
 const MAPBOX_TOKEN =
   'pk.eyJ1Ijoic3dteXRob3MiLCJhIjoiY2xsbXc5MmE1MDRjMjNla3F6bDhueTV5OSJ9.cu9Y3UeEMkFTX45o0UDaSw';
-const NEWS_API_KEY = '72854b184e9b4fb88d7b85d9362f3e4a';
+const NEWS_API_KEY = 'd110f838776743f3a01ae78763f27418';
 
 function Dashboard() {
   const map = useRef(null);
@@ -84,7 +84,7 @@ function Dashboard() {
         saveNews: {
           newsId: newsItem.publishedAt + newsItem.source.name + newsItem.author,
           title: newsItem.title,
-          summary: newsItem.description || '',
+          summary: newsItem.description,
           url: newsItem.url,
           image: newsItem.urlToImage,
         },
@@ -95,14 +95,14 @@ function Dashboard() {
       });
 
       console.log('Mutation response:', mutationResponse);
-      // const { token, currentUser } = mutationResponse.data.saveNews;
+      const { token, currentUser } = mutationResponse.data.saveNews;
     } catch (e) {
       console.log(e);
     }
   };
 
   return (
-    <div className={styles.dashboardContainer}>
+    <div className="bg-gray-800 text-gray-300 font-poppins h-screen flex flex-col justify-center items-center">
       <div ref={mapContainer} className={styles.dashboardMapContainer}>
         {locationDetails && (
           <div className={styles.locationInfoBox}>

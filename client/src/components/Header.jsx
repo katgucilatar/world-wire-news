@@ -1,54 +1,59 @@
-import { Link } from "react-router-dom";
-import { useCurrentUserContext } from "../context/CurrentUser";
-import logo from "../../src/assets/WorldWire-Icon.png";
+import { Link } from 'react-router-dom';
+import { useCurrentUserContext } from '../context/CurrentUser';
+import logo from '../../src/assets/WorldWire-Icon.png';
 import { Accordion } from 'flowbite-react';
-
 
 function Header() {
   const { isLoggedIn, logoutUser } = useCurrentUserContext();
 
+  const handleHomepageClick = () => {
+    window.location.href = '/homepage';
+  };
+
   return (
     <nav
-      className="relative flex w-full flex-wrap items-center justify-between bg-[#FBFBFB] py-2 text-neutral-500 shadow-lg hover:text-neutral-700 focus:text-neutral-700 dark:bg-neutral-600 lg:py-2 navbar"
+      className="relative flex w-full items-center justify-between bg-[#FBFBFB] py-3 h-20 text-neutral-500 shadow-lg hover:text-neutral-700 focus:text-neutral-700 dark:bg-neutral-600 lg:py-2"
       data-te-navbar-ref
     >
-      <div className="flex w-full flex-wrap items-center justify-between px-3">
-        <Link to="/">
-          <img src={logo} className="w-10" alt="WorldWire Icon"></img>
-        </Link>
+      <div className="flex w-full flex-wrap justify-between items-center">
+        <div className="flex items-center">
+          <Link to="/" className="flex items-center">
+            <img src={logo} className="w-10 sm:w-14" alt="WorldWire Icon" />
+          </Link>
+        </div>
+
         {isLoggedIn() ? (
-          <>
-            <Link to="/homepage" className="text-blue-600 navlink">
+          <div className="mt-1">
+            <Link
+              to="/homepage"
+              className="text-blue-600 ml-3"
+              onClick={handleHomepageClick}
+            >
               Homepage
             </Link>
-            <Link to="/search-news" className="text-blue-600 mr-3 navlink">
-                Search News
-              </Link>
-            <Link to="/dashboard" className="text-blue-600 navlink">
+            <Link to="/dashboard" className="text-blue-600 ml-3">
               Dashboard
             </Link>
             <button
               type="button"
-              className="text-blue-600 navlink"
+              className="text-blue-600 ml-3"
               onClick={logoutUser}
             >
               Logout
             </button>
-          </>
+          </div>
         ) : (
-          <>
-            <div className="py-2">
-              <Link to="/search-news" className="text-blue-600 mr-3 navlink">
-                Search News
-              </Link>
-              <Link to="/login" className="text-blue-600 mr-3 navlink">
-                Login
-              </Link>
-              <Link to="/register" className="text-blue-600 navlink">
-                Sign Up
-              </Link>
-            </div>
-          </>
+          <div className="py-2">
+            <Link to="/search-news" className="text-blue-600 mr-3">
+              Search News
+            </Link>
+            <Link to="/login" className="text-blue-600 mr-3">
+              Login
+            </Link>
+            <Link to="/register" className="text-blue-600">
+              Sign Up
+            </Link>
+          </div>
         )}
       </div>
     </nav>
