@@ -78,6 +78,7 @@ function Dashboard() {
   const [saveNews, { error }] = useMutation(SAVE_NEWS);
 
   const handleSaveNews = async (newsItem) => {
+    event.stopPropagation();
     event.preventDefault();
     try {
       let variables = {
@@ -120,7 +121,12 @@ function Dashboard() {
           </h4>
           <div
             className=" p-5 bg-transparent max-w-[20rem] z-10 overflow-y-scroll h-[600px] rounded-5 shadow-md flex flex-col items-center"
-            onClick={() => setIsNewsVisible(false)}
+            onClick={(e) => {
+              // Check if the target is the container itself
+              if (e.target === e.currentTarget) {
+                setIsNewsVisible(false);
+              }
+            }}
           >
             {news.map((newsItem, index) => (
               <div
