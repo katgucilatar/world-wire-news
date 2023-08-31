@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Container, Col, Form, Button, Card, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 import Auth from "../utils/auth";
 import { saveNewsIds, getSavedNewsIds } from "../utils/localStorage";
@@ -17,6 +18,8 @@ const SearchNews = () => {
 
   const [saveNews, { error }] = useMutation(SAVE_NEWS);
 
+ 
+
   // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
   // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
   useEffect(() => {
@@ -27,27 +30,29 @@ const SearchNews = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
+    var apiKey = "ab9c7cce208a4d04b3ce75bbf6ca7809";
+
     if (!searchInput) {
       return false;
     }
 
     try {
       const response = await fetch(
-        `https://api.worldnewsapi.com/search-news?api-key=76c92a54c1ed409d97c7ca30981b71e1source-countries=${searchInput}`
+        `https://api.worldnewsapi.com/search-news?api-key=${apiKey}&source-countries=${searchInput}`
       );
 
       if (!response.ok) {
         throw new Error("something went wrong!");
       }
 
-      const { items } = await response.json();
+      const {news}  = await response.json();
 
-      const newsData = items.map((news) => ({
+      const newsData = news.map((news) => ({
         newsId: news.id,
-        title: news.title || ["No author to display"],
+        title: news.title,
         summary: news.summary,
         source_country: news.source_country,
-        image: news.image || "No image found",
+        image: news.image,
         url: news.url,
         // latest_publish_date: news.latest_publish_date
       }));
@@ -107,6 +112,9 @@ const SearchNews = () => {
               </Col>
             </Row>
           </Form>
+          <h2>See a news article you wanna save? Click <Link to="/register" className="text-blue-600">
+            here
+          </Link> to make an account!</h2>
         </Container>
       </div>
 
@@ -114,7 +122,7 @@ const SearchNews = () => {
         <h2 className="pt-5">
           {searchedNews.length
             ? `Viewing ${searchedNews.length} results:`
-            : "Search for a book to begin"}
+            : "Search for a country to begin"}
         </h2>
         <Row>
           {searchedNews.map((news) => {

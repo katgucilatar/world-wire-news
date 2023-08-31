@@ -70,7 +70,7 @@ input {
   padding: 0.25rem;
 }
 
-button {
+/* button {
   display: inline-block;
   font-weight: 400;
   color: #212529;
@@ -82,9 +82,9 @@ button {
   border-radius: 0.25rem;
   color: #fff;
   background-color: #007bff;
-}
+} */
 
-#login-form,
+/* #login-form,
 #registration-form {
   display: flex;
   flex-direction: column;
@@ -93,7 +93,7 @@ button {
   margin: 3rem auto;
   padding: 1.5rem;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-}
+} */
 
 .page-title {
   text-align: center;
@@ -251,4 +251,9 @@ button {
   -webkti-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+.news-card {
+  display: flex;
+  margin: 25px;
+  padding: 25px;
 }

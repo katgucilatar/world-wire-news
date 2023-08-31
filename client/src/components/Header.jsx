@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { useCurrentUserContext } from "../context/CurrentUser";
 import logo from "../../src/assets/WorldWire-Icon.png";
+import { Accordion } from 'flowbite-react';
+
 
 function Header() {
   const { isLoggedIn, logoutUser } = useCurrentUserContext();
@@ -16,6 +18,12 @@ function Header() {
         </Link>
         {isLoggedIn() ? (
           <>
+            <Link to="/homepage" className="text-blue-600">
+              Homepage
+            </Link>
+            <Link to="/search-news" className="text-blue-600 mr-3">
+                Search News
+              </Link>
             <Link to="/dashboard" className="text-blue-600">
               Dashboard
             </Link>
@@ -30,6 +38,9 @@ function Header() {
         ) : (
           <>
             <div className="py-2">
+              <Link to="/search-news" className="text-blue-600 mr-3">
+                Search News
+              </Link>
               <Link to="/login" className="text-blue-600 mr-3">
                 Login
               </Link>
