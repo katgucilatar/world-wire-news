@@ -17,13 +17,13 @@ function Header() {
     >
       <div className="flex w-full flex-wrap justify-between items-center">
         <div className="flex items-center">
-          <Link to="/" className="flex items-center">
+          <Link to="/" className="flex items-center ml-2">
             <img src={logo} className="w-10 sm:w-14" alt="WorldWire Icon" />
           </Link>
         </div>
 
         {isLoggedIn() ? (
-          <div className="mt-1">
+          <div className="mt-1 mr-3">
             <Link
               to="/homepage"
               className="text-blue-600 ml-3"
@@ -43,10 +43,7 @@ function Header() {
             </button>
           </div>
         ) : (
-          <div className="py-2">
-            <Link to="/search-news" className="text-blue-600 mr-3">
-              Search News
-            </Link>
+          <div className="py-2 mr-3">
             <Link to="/login" className="text-blue-600 mr-3">
               Login
             </Link>
