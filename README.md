@@ -39,7 +39,7 @@ Screenshot of the deployed application
 Katrina: [GitHub](https://github.com/katgucilatar) -- [LinkedIn](https://www.linkedin.com/in/katrina-gucilatar-59983217b/) -- [Email](katgucilatar@outlook.com)
 <br>
 <br>
-Herb: [GitHub](https://github.com/HerbSneed) -- [LinkedIn]() -- [Email]()
+Herb: [GitHub](https://github.com/HerbSneed) -- [LinkedIn](https://www.linkedin.com/in/herbsneed/) -- [Email](hmsneed@gmail.com)
 <br>
 <br>
 Illir: [GitHub](https://github.com/IlirHajdari) -- [LinkedIn]() -- [Email]()
