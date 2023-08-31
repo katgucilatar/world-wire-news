@@ -8,14 +8,9 @@ const Landing = () => {
   const [newsItems, setNewsItems] = useState([]);
 
   useEffect(() => {
-    const fetchNews = async (event) => {
-        event.preventDefault();
+    const fetchNews = async () => {
 
         var apiKey = "ab9c7cce208a4d04b3ce75bbf6ca7809";
-    
-        if (!searchInput) {
-          return false;
-        }
     
         try {
           const response = await fetch(
