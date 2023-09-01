@@ -77,7 +77,7 @@ function Dashboard() {
   });
   const [saveNews, { error }] = useMutation(SAVE_NEWS);
 
-  const handleSaveNews = async (newsItem) => {
+  const handleSaveNews = async (newsItem, event) => {
     event.stopPropagation();
     event.preventDefault();
     try {
