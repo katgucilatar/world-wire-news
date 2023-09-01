@@ -40,7 +40,7 @@ Our motivation for this project was discussed between two of our memebers before
 2. Express
 3. MongoDB
 ## Application
-Link of deployed application
+[Link of deployed application](https://worldwire-news-863d47e11145.herokuapp.com/)
 ## Screenshots
 Screenshot of the deployed application
 ## Contributors
